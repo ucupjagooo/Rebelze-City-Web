@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REBEL STATE - ACCESS POINT</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SweetAlert2 untuk notifikasi dan prompt kata sandi -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* Konfigurasi Dasar dan Font */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #050510; /* Hitam Kebiruan Gelap */
+            color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Mencegah scroll */
+        }
+
+        /* Definisi Warna Tema Rebel (Pink & Cyan) */
+        :root {
+            --neon-pink: #ff0099; /* Warna Utama Pink */
+            --neon-cyan: #00f3ff; /* Aksen Biru Cyan */
+        }
+        
+        /* Efek latar belakang yang sama dengan halaman utama */
+        .splash-container {
+            position: relative;
+            background: linear-gradient(180deg, #050510 0%, rgba(255, 0, 153, 0.05) 100%);
+            padding: 40px;
+            text-align: center;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            z-index: 10;
+            /* Tambahkan border neon */
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 50px rgba(255, 0, 153, 0.3);
+        }
+
+        .title-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            /* Efek Text Shadow yang sama */
+            text-shadow: 3px 3px 0px var(--neon-pink), -2px -2px 0px var(--neon-cyan);
+            font-style: italic;
+        }
+
+        /* CTA Button Styling (Sama Persis) */
+        .cta-button {
+            display: inline-block;
+            background: transparent;
+            color: var(--neon-cyan);
+            padding: 15px 50px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 0;
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px var(--neon-cyan);
+            letter-spacing: 3px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+        }
+        .cta-button:hover:not(:disabled) {
+            background-color: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 40px var(--neon-cyan);
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .cta-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.4;
+            box-shadow: none;
+        }
+        
+        /* Responsive Title */
+        @media (max-width: 600px) {
+            .title-text {
+                font-size: 2.5rem;
+            }
+            .cta-button {
+                font-size: 1rem;
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="splash-container" data-aos="zoom-in" data-aos-duration="1000">
+        
+        <div class="w-24 h-24 mx-auto mb-6">
+            <!-- LOGO Placeholder yang sama -->
+            <img src="web rebel/image.png"
+                onerror="this.onerror=null; this.src='https://placehold.co/100x100/ff0099/ffffff?text=REBEL';"
+                alt="Rebel Logo"
+                class="w-full h-full rounded-full border-4 border-[var(--neon-pink)] object-cover shadow-[0_0_20px_var(--neon-pink)]">
+        </div>
+        
+        <h1 class="title-text">
+            REBEL STATE
+        </h1>
+        <p class="text-xl text-gray-300 tracking-wider font-mono" data-aos="fade-up" data-aos-delay="200">
+            [ INITIALIZING ACCESS GATEWAY ]
+        </p>
+
+        <!-- SATU-SATUNYA TOMBOL -->
+        <button 
+            id="enter-button" 
+            class="cta-button" 
+            data-aos="fade-up" 
+            data-aos-delay="500"
+            onclick="enterSite()">
+            ENTER CITY
+        </button>
+
+        <p id="status-message" class="mt-8 text-sm text-gray-500 font-mono transition-colors duration-300">
+            Secure Connection Established. Click to Proceed.
+        </p>
+    </div>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // --- KONFIGURASI KEAMANAN ---
+        const ACCESS_PASSWORD = 'rebelcity';
+        const MAX_ATTEMPTS = 5;
+        // Gunakan localStorage untuk melacak upaya login yang gagal agar persist di browser
+        const ATTEMPT_KEY = 'rebelStateLoginAttempts';
+
+        // Ambil jumlah upaya yang gagal (default 0)
+        let loginAttempts = parseInt(localStorage.getItem(ATTEMPT_KEY) || '0', 10);
+        
+        const enterButton = document.getElementById('enter-button');
+        const statusMessage = document.getElementById('status-message');
+
+        /**
+         * Fungsi untuk mengarahkan pengguna ke halaman utama.
+         */
+        function proceedToSite() {
+            localStorage.removeItem(ATTEMPT_KEY); // Reset attempts on success
+            Swal.fire({
+                title: 'ACCESS GRANTED',
+                text: 'Mengarahkan ke Kota Rebel State...',
+                icon: 'success',
+                background: '#1a1a1a',
+                color: '#fff',
+                timer: 1000, 
+                timerProgressBar: true,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'border-2 border-green-500 shadow-lg shadow-green-900',
+                    title: 'text-green-400'
+                },
+                didOpen: () => {
+                    // Setelah notif muncul sebentar, langsung redirect
+                    setTimeout(() => {
+                        window.location.href = "web rebel/pertama.html";
+                    }, 500);
+                }
+            });
+        }
+
+        /**
+         * Fungsi untuk menampilkan prompt kata sandi.
+         */
+        function promptForPassword() {
+            if (loginAttempts >= MAX_ATTEMPTS) {
+                // Jangan tampilkan prompt, langsung handle failed attempt
+                handleFailedAttempt(); 
+                return;
+            }
+
+            Swal.fire({
+                title: 'AUTHENTICATION REQUIRED',
+                html: `<p class="text-sm mt-2 text-gray-400">Restricted access period (00:00 - 09:00).<br>Enter the code below.</p>`,
+                input: 'password',
+                inputPlaceholder: 'Enter Rebel City Password',
+                showCancelButton: true,
+                confirmButtonText: 'Submit',
+                cancelButtonText: 'Cancel',
+                background: '#1a1a1a',
+                color: '#fff',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                customClass: {
+                    popup: 'border-2 border-[var(--neon-cyan)] shadow-lg shadow-[var(--neon-cyan)]',
+                    input: 'bg-gray-800 text-[var(--neon-cyan)] border-gray-700 focus:border-[var(--neon-cyan)]'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const inputPassword = result.value;
+                    if (inputPassword === ACCESS_PASSWORD) {
+                        loginAttempts = 0; // Reset attempts
+                        localStorage.removeItem(ATTEMPT_KEY);
+                        proceedToSite();
+                    } else {
+                        loginAttempts++;
+                        localStorage.setItem(ATTEMPT_KEY, loginAttempts.toString());
+                        handleFailedAttempt();
+                    }
+                }
+            });
+        }
+
+        /**
+         * Menangani percobaan kata sandi yang gagal.
+         */
+        function handleFailedAttempt() {
+            if (loginAttempts >= MAX_ATTEMPTS) {
+                // KICK OUT / LOCK DOWN
+                enterButton.textContent = "ACCESS LOCKED: EXIT WEB";
+                enterButton.disabled = true;
+                enterButton.classList.add('opacity-50', 'cursor-not-allowed', 'bg-red-900', 'text-red-400', 'border-red-400');
+                enterButton.classList.remove('text-[var(--neon-cyan)]', 'border-[var(--neon-cyan)]');
+                
+                statusMessage.textContent = 'SYSTEM LOCKOUT: 5 FAILED ATTEMPTS. Access permanently denied.';
+                statusMessage.classList.add('text-red-400');
+
+                Swal.fire({
+                    title: 'CRITICAL ACCESS DENIED',
+                    text: 'Maximum failed attempts reached. System access locked. Exiting web application now.',
+                    icon: 'error',
+                    confirmButtonText: 'Acknowledge',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    customClass: {
+                        popup: 'border-2 border-red-500 shadow-lg shadow-red-900',
+                        title: 'text-red-400'
+                    }
+                });
+            } else {
+                // Notifikasi percobaan gagal
+                const remaining = MAX_ATTEMPTS - loginAttempts;
+                statusMessage.textContent = `WARNING: Incorrect Code. ${remaining} attempts remaining.`;
+                statusMessage.classList.remove('text-gray-500');
+                statusMessage.classList.add('text-yellow-400');
+
+                Swal.fire({
+                    title: 'INCORRECT CODE',
+                    text: `Attempt failed. You have ${remaining} attempts remaining.`,
+                    icon: 'warning',
+                    timer: 2000,
+                    showConfirmButton: false,
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    customClass: {
+                        popup: 'border-2 border-yellow-500 shadow-lg shadow-yellow-900',
+                        title: 'text-yellow-400'
+                    }
+                });
+            }
+        }
+
+        /**
+         * Fungsi utama yang dipanggil saat tombol diklik.
+         * Bertanggung jawab untuk mengecek waktu dan mengalihkan ke mode otentikasi jika perlu.
+         */
+        window.enterSite = function() {
+            const now = new Date();
+            const currentHour = now.getHours(); // 0 (12 AM) sampai 23 (11 PM)
+
+            // Periode terlarang: Jam 0 (12 AM) sampai Jam 8 (08:59:59). Jam 9 (09:00:00) sudah diizinkan.
+            const isRestricted = currentHour >= 0 && currentHour <= 8;
+
+            // Selalu cek apakah sudah terkunci dari percobaan sebelumnya
+            if (loginAttempts >= MAX_ATTEMPTS) {
+                 handleFailedAttempt(); // Ini akan menampilkan pesan lockout dan memastikan tombol tetap dinonaktifkan
+                 return;
+            }
+
+            if (isRestricted) {
+                promptForPassword();
+            } else {
+                // Waktu terbuka (9 AM - 11:59 PM)
+                proceedToSite();
+            }
+        }
+
+        // Jalankan sekali saat halaman dimuat untuk menampilkan status awal jika sudah terkunci
+        document.addEventListener('DOMContentLoaded', () => {
+            if (loginAttempts >= MAX_ATTEMPTS) {
+                handleFailedAttempt();
+            }
+        });
+    </script>
+</body>
+</html>
