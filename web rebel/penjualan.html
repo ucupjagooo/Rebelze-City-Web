@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasar Gelap N9M - Sales (24 Jam)</title>
+    <!-- Memuat Tailwind CSS CDN untuk styling cepat dan responsif -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Konfigurasi Tailwind untuk tema custom dan animasi glow -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#0a0a0a',
+                        'purple-accent': '#a855f7', // Warna ungu terang
+                        'purple-glow': '#c084fc', // Warna ungu untuk glow
+                        'red-sale': '#ef4444', // Warna merah untuk diskon
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(192, 132, 252, 0.7), 0 0 5px rgba(168, 85, 247, 0.5)',
+                        'glow-sm': '0 0 5px rgba(192, 132, 252, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'], // Menggunakan Inter
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Menggunakan font Inter dan memastikan latar belakang gelap */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            color: #f0f0f0;
+        }
+
+        /* Styling untuk efek glow pada kartu produk dan tombol */
+        .card-glow {
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+            background: linear-gradient(145deg, #1f1f1f, #141414);
+        }
+        .card-glow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(192, 132, 252, 0.4);
+            border-color: #a855f7;
+        }
+
+        .btn-glow {
+            background-color: #a855f7;
+            box-shadow: 0 0 8px rgba(192, 132, 252, 0.8);
+            transition: all 0.2s ease;
+            color: white; /* Default text color */
+        }
+        .btn-glow:hover {
+            background-color: #9333ea;
+            box-shadow: 0 0 15px rgba(192, 132, 252, 1);
+        }
+        .btn-disabled {
+            background-color: #555 !important;
+            color: #ccc !important;
+            cursor: not-allowed;
+            box-shadow: none !important;
+        }
+
+        /* Scrollbar styling untuk tampilan gelap */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a4a4a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c084fc;
+        }
+    </style>
+</head>
+<body class="text-gray-100 p-4 md:p-8">
+
+    <!-- MAIN SHOP CONTENT (Langsung ditampilkan karena password dinonaktifkan) -->
+    <div id="main-shop-content" class="min-h-screen w-full max-w-7xl mx-auto">
+        
+        <!-- Header Aplikasi -->
+        <header class="text-center mb-8 border-b-2 border-red-sale/50 pb-4">
+            <div class="flex items-center justify-center space-x-3">
+                <h1 class="4xl md:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-red-sale to-purple-accent">
+                    <span class="shadow-glow-sm">Pasar Gelap N9M - <span class="text-red-sale">SALES 25% OFF</span></span>
+                </h1>
+            </div>
+            <p class="text-gray-400 mt-2 text-lg">Siapkan diri Anda dengan perlengkapan terbaik dengan harga diskon! (Buka 24 Jam)</p>
+        </header>
+
+        <!-- Konten Utama: Daftar Produk dan Keranjang Belanja -->
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Kiri: Daftar Produk -->
+            <section class="lg:col-span-2">
+                <h2 class="text-2xl font-bold mb-4 text-purple-glow">Daftar Perlengkapan</h2>
+                <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <!-- Kartu produk akan di-render di sini oleh JavaScript -->
+                </div>
+            </section>
+
+            <!-- Kanan: Keranjang Belanja & Total -->
+            <aside class="lg:col-span-1 sticky top-8">
+                <div class="card-glow p-6 rounded-xl shadow-lg border-purple-accent/30">
+                    <h2 class="text-2xl font-bold mb-4 text-purple-glow border-b border-gray-700 pb-2">Keranjang Belanja</h2>
+
+                    <!-- Daftar Item di Keranjang -->
+                    <div id="cart-items" class="min-h-24 max-h-96 overflow-y-auto mb-4 space-y-3">
+                        <p class="text-gray-500 text-center py-4">Keranjang Anda kosong.</p>
+                    </div>
+
+                    <!-- Total Harga -->
+                    <div class="border-t border-purple-accent/50 pt-4 mt-4">
+                        <div class="flex justify-between items-center text-xl font-bold mb-4">
+                            <span class="text-purple-glow">Total Harga:</span>
+                            <span id="total-price" class="text-3xl font-extrabold text-red-sale shadow-glow-sm">$0</span>
+                        </div>
+
+                        <!-- Area Tombol Checkout -->
+                        <div id="checkout-area">
+                            
+                            <!-- Input Nama Pemesan -->
+                            <input type="text" id="buyer-name" placeholder="Nama IC Pemesan (Wajib)" class="w-full p-3 mb-3 bg-gray-900 border border-purple-accent rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-glow">
+
+                            <!-- Tombol "Kirim Pesanan ke Discord" -->
+                            <button id="checkout-button" onclick="checkoutToDiscord()" class="btn-glow w-full py-3 rounded-lg text-white font-semibold uppercase tracking-wider transition duration-200">
+                                Kirim Pesanan ke Discord
+                            </button>
+                            
+                            <!-- Pesan Status -->
+                            <p id="checkout-message" class="text-center mt-3 text-sm text-yellow-400">
+                                Pesanan akan dikirim ke Discord Admin.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </aside>
+
+        </main>
+    </div>
+
+    <script>
+        // --- KONFIGURASI KHUSUS ---
+        const DISKON_RATE = 0.75; // 25% off -> harga menjadi 75%
+        const COOLDOWN_DURATION = 30 * 60 * 1000; // 30 menit
+        const LAST_PURCHASE_KEY = 'shop_last_purchase_time_sales';
+        // Ganti URL Webhook ini dengan URL yang valid agar pesanan benar-benar terkirim!
+        const DISCORD_ORDER_WEBHOOK = "https://discord.com/api/webhooks/1445606857170354228/UJPK_LITEvJSRTE_shKRhp8fLJs9uFkM8m52g-Zc6l7jJI_Rkf3iMhaVZeAicr2rqxsl";
+        
+        // Data Produk Asli
+        const originalProducts = [
+            { id: 1, name: "M4a1", price: 20000, description: "Senjata Kelas Berat." },
+            { id: 2, name: "M4a4", price: 20000, description: "Senjata Kelas Berat." },
+            { id: 3, name: "Ak47", price: 25000, description: "Senjata Kelas Berat." },
+            { id: 4, name: "All Type Pistol", price: 10000, description: "Senjata Kelas Menengah." },
+            { id: 5, name: "AWP", price: 60000, description: "Senjata Kelas Berat (Sniper)." },
+            { id: 6, name: "Vest II", price: 30000, description: "Armor Kelas Berat (Perlindungan Maksimal)." },
+            { id: 7, name: "Vest I", price: 10000, description: "Armor Kelas Menengah." },
+            { id: 8, name: "Tobaco", price: 1000, description: "Item Konsumsi Kelas Bawah (Simulasi Rokok/Stimulan)." },
+            { id: 9, name: "Bandage", price: 5000, description: "Item Healing untuk mengobati luka." },
+            { id: 10, name: "Robbery Tools", price: 20000, description: "Peralatan lengkap untuk aktivitas 'Maling'." },
+            { id: 11, name: "Peluru Apapun", price: 40000, description: "Kotak amunisi universal untuk semua jenis senjata." },
+            // Item Baru: Shotgun
+            { id: 12, name: "Shotgun", price: 15000, description: "Senjata Kelas Menengah (Jarak Dekat)." },
+        ];
+
+        // Hitung harga produk setelah diskon
+        const products = originalProducts.map(p => ({
+            ...p,
+            originalPrice: p.price,
+            price: Math.round(p.price * DISKON_RATE) // Hitung harga diskon 25%
+        }));
+
+        // State Keranjang Belanja
+        let cart = {};
+
+        // Fungsi Format Mata Uang USD
+        const formatCurrency = (number) => {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0
+            }).format(number);
+        };
+        
+        // --- FUNGSI TOKO ---
+
+        // Fungsi Pengecekan Jam Operasional (24 Jam)
+        // Selalu mengembalikan true untuk operasional 24 jam.
+        const checkOperatingHours = () => {
+            return true; 
+        };
+        
+        // Fungsi Pengecekan Cooldown (30 menit)
+        const checkCooldownStatus = () => {
+            const lastPurchaseTime = parseInt(localStorage.getItem(LAST_PURCHASE_KEY));
+            if (!lastPurchaseTime) return 0;
+
+            const currentTime = new Date().getTime();
+            const expirationTime = lastPurchaseTime + COOLDOWN_DURATION;
+            
+            if (currentTime >= expirationTime) return 0;
+
+            return expirationTime - currentTime; // Waktu sisa dalam milidetik
+        };
+
+        // Fungsi untuk Menghitung dan Memperbarui Total Harga
+        const calculateTotal = () => {
+            let total = 0;
+            for (const id in cart) {
+                const product = products.find(p => p.id === parseInt(id));
+                if (product) {
+                    total += product.price * cart[id];
+                }
+            }
+            document.getElementById('total-price').textContent = formatCurrency(total);
+            return total;
+        };
+
+        // Fungsi untuk Menambah Item ke Keranjang
+        window.addToCart = (productId) => { 
+            // Pengecekan Jam Operasional dihapus karena toko 24 jam.
+            
+            if (checkCooldownStatus() > 0) { 
+                Swal.fire({ 
+                    icon: 'warning', 
+                    title: 'Cooldown Aktif', 
+                    text: 'Anda hanya bisa membeli item dari toko ini setiap 30 menit sekali.', 
+                    background: '#1a1a1a', 
+                    color: '#fff',
+                    confirmButtonColor: '#a855f7'
+                });
+                return;
+            }
+            
+            const id = String(productId);
+            if (cart[id]) {
+                cart[id]++;
+            } else {
+                cart[id] = 1;
+            }
+            renderCart();
+        };
+
+        // Fungsi untuk Mengubah Kuantitas Item
+        window.updateQuantity = (productId, change) => { 
+            // Pengecekan Jam Operasional dihapus karena toko 24 jam.
+
+            if (checkCooldownStatus() > 0) { 
+                Swal.fire({ 
+                    icon: 'warning', 
+                    title: 'Cooldown Aktif', 
+                    text: 'Anda hanya bisa mengubah pesanan setiap 30 menit sekali.', 
+                    background: '#1a1a1a', 
+                    color: '#fff',
+                    confirmButtonColor: '#a855f7'
+                });
+                return;
+            }
+
+            const id = String(productId);
+            if (cart[id]) {
+                cart[id] += change;
+
+                if (cart[id] <= 0) {
+                    delete cart[id];
+                }
+            }
+            renderCart();
+        };
+
+        // Fungsi untuk Merender Daftar Produk
+        const renderProducts = () => {
+            const productListDiv = document.getElementById('product-list');
+            productListDiv.innerHTML = products.map(product => `
+                <div class="card-glow p-5 rounded-xl flex flex-col justify-between shadow-glow-sm cursor-pointer" onclick="addToCart(${product.id})">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-1">${product.name}</h3>
+                        <p class="text-red-sale text-xs font-semibold mb-2">DISKON 25% OFF!</p>
+                        <p class="text-gray-400 text-sm mb-3">${product.description}</p>
+                    </div>
+                    <div class="flex justify-between items-center pt-3 border-t border-gray-700">
+                        <div class="flex flex-col">
+                            <span class="text-xs text-gray-500 line-through">${formatCurrency(product.originalPrice)}</span>
+                            <span class="text-2xl font-extrabold text-red-sale">${formatCurrency(product.price)}</span>
+                        </div>
+                        <button class="btn-glow px-4 py-1.5 text-sm rounded-full text-white hover:scale-105" title="Klik untuk menambah ke keranjang">
+                            + Tambah
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        // Fungsi untuk Merender Isi Keranjang Belanja & Mengontrol Tombol Checkout
+        const renderCart = () => {
+            const cartItemsDiv = document.getElementById('cart-items');
+            const checkoutButton = document.getElementById('checkout-button');
+            const messageDiv = document.getElementById('checkout-message');
+            const remainingCooldown = checkCooldownStatus();
+            // isOperating tidak lagi digunakan karena selalu true
+            
+            let cartContent = '';
+            const itemsInCart = Object.keys(cart).map(id => {
+                const product = products.find(p => p.id === parseInt(id));
+                if (product) {
+                    return { ...product, quantity: cart[id], subtotal: product.price * cart[id] };
+                }
+                return null;
+            }).filter(item => item !== null);
+
+            if (itemsInCart.length === 0) {
+                cartContent = `<p class="text-gray-500 text-center py-4">Keranjang Anda kosong.</p>`;
+            } else {
+                // Tombol +/- sekarang hanya dinonaktifkan oleh cooldown, bukan jam operasional
+                cartContent = itemsInCart.map(item => `
+                    <div class="flex items-center justify-between p-3 bg-dark-bg rounded-lg border border-gray-700">
+                        <div class="flex-grow">
+                            <p class="text-white font-semibold">${item.name}</p>
+                            <p class="text-red-sale text-sm">${formatCurrency(item.price)} x ${item.quantity}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="text-gray-300 hover:text-red-500 font-bold p-1 w-6 h-6 rounded-full border border-gray-600 hover:border-red-500 transition duration-150" title="Kurangi Kuantitas" ${remainingCooldown === 0 ? '' : 'disabled'} >-</button>
+                            <span class="text-lg font-bold">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="text-gray-300 hover:text-green-500 font-bold p-1 w-6 h-6 rounded-full border border-gray-600 hover:border-green-500 transition duration-150" title="Tambah Kuantitas" ${remainingCooldown === 0 ? '' : 'disabled'} >+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            cartItemsDiv.innerHTML = cartContent;
+            calculateTotal();
+
+            // Kontrol Tombol dan Pesan Berdasarkan Cooldown dan Isi Keranjang
+            
+            if (remainingCooldown > 0) { // COOLDOWN ACTIVE
+                checkoutButton.classList.add('btn-disabled');
+                checkoutButton.disabled = true;
+                
+                const nextPurchaseDate = new Date(new Date().getTime() + remainingCooldown);
+                const timeString = nextPurchaseDate.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+                messageDiv.textContent = `Toko cooldown. Beli lagi setelah: ${timeString} WIB.`;
+                messageDiv.classList.remove('text-yellow-400');
+                messageDiv.classList.add('text-red-400');
+                
+            } else if (itemsInCart.length === 0) {
+                checkoutButton.classList.add('btn-disabled');
+                checkoutButton.disabled = true;
+                messageDiv.textContent = "Keranjang kosong. Tambahkan item untuk membeli.";
+                messageDiv.classList.remove('text-red-400', 'text-green-400');
+                messageDiv.classList.add('text-yellow-400');
+                
+            } else {
+                checkoutButton.classList.remove('btn-disabled');
+                checkoutButton.disabled = false;
+                messageDiv.textContent = "Pesanan siap dikirim ke Discord Admin (24 Jam Operasional).";
+                messageDiv.classList.remove('text-red-400', 'text-yellow-400');
+                messageDiv.classList.add('text-green-400');
+            }
+        };
+
+        // Fungsi Checkout: Mengirim ke Discord Webhook
+        window.checkoutToDiscord = async () => { 
+            const buyerNameInput = document.getElementById('buyer-name');
+            const buyerName = buyerNameInput.value.trim();
+            const checkoutButton = document.getElementById('checkout-button');
+            const totalPriceText = document.getElementById('total-price').textContent;
+            
+            // Final check guards
+            // Pengecekan jam operasional dihapus karena toko 24 jam.
+            if (checkCooldownStatus() > 0 || Object.keys(cart).length === 0) {
+                Swal.fire({ 
+                    icon: 'error', 
+                    title: 'Aksi Ditolak', 
+                    text: 'Pastikan tidak dalam masa cooldown dan keranjang tidak kosong.', 
+                    background: '#1a1a1a', 
+                    color: '#fff',
+                    confirmButtonColor: '#a855f7'
+                });
+                renderCart();
+                return;
+            }
+
+            // 1. Validasi Nama
+            if (!buyerName) {
+                Swal.fire({ 
+                    icon: 'error', 
+                    title: 'Nama Wajib Diisi', 
+                    text: 'Mohon masukkan Nama IC (RP) Anda untuk memproses pesanan.', 
+                    background: '#1a1a1a', 
+                    color: '#fff',
+                    confirmButtonColor: '#a855f7'
+                });
+                buyerNameInput.focus();
+                return;
+            }
+
+            // 2. Persiapan Data
+            const itemsInCart = Object.keys(cart).map(id => {
+                const product = products.find(p => p.id === parseInt(id));
+                if (product) {
+                    return { ...product, quantity: cart[id], subtotal: product.price * cart[id] };
+                }
+                return null;
+            }).filter(item => item !== null);
+
+            // Format field list item Discord
+            const itemDescription = itemsInCart.map(item =>  
+                `> ${item.name} (${formatCurrency(item.price)} per item) x **${item.quantity}** = **${formatCurrency(item.subtotal)}**`
+            ).join('\n');
+
+            const discordPayload = {
+                username: "N9M Sales Bot",
+                avatar_url: "https://placehold.co/128x128/a855f7/ffffff?text=N9M",
+                embeds: [{
+                    title: `🛒 PESANAN PASAR GELAP BARU (DISKON 25%)`,
+                    description: `Pesanan diterima dari **${buyerName}** (N9M). (24 Jam Operasional)`,
+                    color: 14781703, // Merah Decimal
+                    fields: [
+                        { name: "👤 Pemesan", value: `**${buyerName}**`, inline: false },
+                        { name: "📦 Detail Pesanan", value: itemDescription, inline: false },
+                        { name: "💰 TOTAL HARGA", value: `**${totalPriceText}**`, inline: true },
+                        { name: "🕒 Waktu Pesan", value: new Date().toLocaleString('id-ID'), inline: true }
+                    ],
+                    footer: { text: "N9M Market System | Sales" }
+                }]
+            };
+
+            // 3. Kirim ke Discord
+            checkoutButton.innerHTML = "MENGIRIM...";
+            checkoutButton.classList.add('btn-disabled');
+            checkoutButton.disabled = true;
+
+            try {
+                // Check for placeholder URL
+                if (DISCORD_ORDER_WEBHOOK.includes("1444582884211163177")) {
+                    console.warn("Menggunakan URL Webhook default. Pesanan mungkin tidak benar-benar terkirim ke server Discord Anda.");
+                }
+
+                const response = await fetch(DISCORD_ORDER_WEBHOOK, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(discordPayload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Discord API responded with status ${response.status}`);
+                }
+
+                // --- START COOLDOWN ON SUCCESS ---
+                localStorage.setItem(LAST_PURCHASE_KEY, new Date().getTime());
+                // --- END COOLDOWN ---
+                
+                // 4. Sukses
+                Swal.fire({ 
+                    icon: 'success', 
+                    title: 'Pesanan Terkirim!', 
+                    text: `Pesanan atas nama ${buyerName} berhasil dikirim ke Discord Admin. Anda tidak bisa memesan lagi selama 30 menit.`, 
+                    background: '#1a1a1a', 
+                    color: '#fff',
+                    confirmButtonColor: '#a855f7'
+                });
+
+                // Reset keranjang
+                cart = {};
+                renderCart();
+                buyerNameInput.value = '';
+
+            } catch (error) {
+                console.error("Error saat mengirim pesanan:", error);
+                Swal.fire({ 
+                    icon: 'error', 
+                    title: 'Gagal Mengirim Pesanan', 
+                    text: `Terjadi kesalahan. Cek konsol.`, 
+                    background: '#1a1a1a', 
+                    color: '#fff',
+                    confirmButtonColor: '#a855f7'
+                });
+            } finally {
+                checkoutButton.innerHTML = "Kirim Pesanan ke Discord";
+                checkoutButton.classList.remove('btn-disabled');
+                checkoutButton.disabled = false;
+                renderCart(); // Perbarui status tombol setelah operasi
+            }
+        };
+
+        // Inisialisasi Toko Penuh
+        const initializeShop = () => {
+            renderProducts();
+            renderCart();
+            // Atur timer untuk refresh status setiap 30 detik (untuk update cooldown)
+            setInterval(renderCart, 30000); 
+        };
+
+        // Inisialisasi Aplikasi saat memuat halaman
+        window.onload = initializeShop;
+    </script>
+</body>
+</html>
