@@ -8,9 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        /* Mengatur font Poppins dan tema gelap-ungu */
+        /* Mengatur font Inter (default Tailwind) dan tema gelap-ungu */
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #1a1a2e; /* Hitam keunguan tua */
             color: #ffffff; /* Teks putih */
             display: flex;
@@ -26,7 +26,6 @@
             --purple-glow: #c084fc;
             --purple-dark: #2a094e;
             --purple-border: #6c47ff;
-            --dark-card: #2a094e;
         }
         
         .container-card {
@@ -73,13 +72,13 @@
             box-shadow: none !important;
         }
         
-        /* Class khusus untuk warna chip */
+        /* Class khusus untuk warna chip (Menggunakan angka nilai chip untuk kelas) */
         .chip-color-1 { background-color: #f3f4f6; color: #1f2937; } /* Putih */
         .chip-color-10 { background-color: #1e3a8a; color: #ffffff; } /* Biru Tua */
-        .chip-color-25 { background-color: #b91c1c; color: #ffffff; } /* Merah */
+        .chip-color-30 { background-color: #b91c1c; color: #ffffff; } /* Merah (Updated to $30) */
         .chip-color-50 { background-color: #059669; color: #ffffff; } /* Hijau */
         .chip-color-100 { background-color: #000000; color: #ffffff; border: 1px solid #4b5563; } /* Hitam */
-        .chip-color-250 { background-color: #6d28d9; color: #ffffff; } /* Ungu */
+        .chip-color-250 { background-color: #6d28d9; color: #ffffff; } /* Ungu (Updated to $250) */
         .chip-color-500 { background-color: #fcd34d; color: #1f2937; } /* Kuning */
         .chip-color-1000 { background-color: #78350f; color: #ffffff; } /* Coklat */
         .chip-color-10000 { background-color: #38bdf8; color: #1f2937; } /* Biru Muda */
@@ -124,7 +123,7 @@
                 <div class="relative rounded-2xl overflow-hidden shadow-purple-heavy mb-8">
                     <!-- Placeholder untuk Gambar Casino -->
                     <img 
-                        src=casino.png  
+                        src=casino.png  
                         alt="Interior Casino dengan meja judi dan peti-peti" 
                         class="w-full h-auto object-cover opacity-90"
                         onerror="this.onerror=null; this.src='https://placehold.co/1200x400/3e1f76/ffffff?text=HIGH+ROLLER+CASINO+FLOOR';"
@@ -149,7 +148,7 @@
                             <ul class="space-y-3">
                                 <li class="flex justify-between items-center">
                                     <div>
-                                        <span class="chip bg-red-700 text-white mr-3">MERAH</span>
+                                        <span class="chip bg-red-700 text-white mr-3 px-2 py-1 rounded-md text-sm font-semibold">MERAH</span>
                                         <span class="text-gray-100 font-medium">Taruhan Default</span>
                                     </div>
                                     <div class="text-right">
@@ -159,7 +158,7 @@
                                 </li>
                                 <li class="flex justify-between items-center">
                                     <div>
-                                        <span class="chip bg-gray-900 text-white mr-3">HITAM</span>
+                                        <span class="chip bg-gray-900 text-white mr-3 px-2 py-1 rounded-md text-sm font-semibold">HITAM</span>
                                         <span class="text-gray-100 font-medium">Taruhan Default</span>
                                     </div>
                                     <div class="text-right">
@@ -169,7 +168,7 @@
                                 </li>
                                 <li class="flex justify-between items-center border-t border-gray-600 pt-3">
                                     <div>
-                                        <span class="chip bg-green-700 text-white mr-3">HIJAU</span>
+                                        <span class="chip bg-green-700 text-white mr-3 px-2 py-1 rounded-md text-sm font-semibold">HIJAU</span>
                                         <span class="text-purple-highlight font-medium">Jackpot Langka</span>
                                     </div>
                                     <div class="text-right">
@@ -194,7 +193,7 @@
                             </div>
                             <div class="border-t border-gray-600 pt-3 mt-3">
                                 <p class="text-xl font-semibold text-purple-highlight mb-1">Jam Operasional:</p>
-                                <p id="operating-hours-display" class="text-white text-lg font-bold">15:00 (3 Sore) - 24:00 (12 Malam)</p>
+                                <p id="operating-hours-display" class="text-white text-lg font-bold">12:00 (12 Siang) - 24:00 (12 Malam)</p>
                                 <p id="status-indicator" class="text-sm font-semibold mt-1">
                                     <!-- Status buka/tutup akan di-render di sini -->
                                 </p>
@@ -203,7 +202,7 @@
 
                         <!-- Tombol Aksi Casino (Deposit/Taruhan) -->
                         <div id="casino-action-area" class="space-y-3">
-                            <button id="action-button" onclick="promptCasinoAction()" class="btn-casino-action w-full py-3 rounded-xl text-white font-semibold uppercase tracking-wider hidden">
+                            <button id="action-button" onclick="promptCasinoAction()" class="btn-action w-full py-3 rounded-xl text-white font-semibold uppercase tracking-wider hidden">
                                 Lanjutkan Taruhan & Deposit
                             </button>
                             
@@ -327,18 +326,19 @@
 
     <script>
         // --- KONFIGURASI KHUSUS ---
+        // PENTING: Ganti URL ini dengan Discord Webhook Anda yang sebenarnya
         const DISCORD_ORDER_WEBHOOK = "https://discord.com/api/webhooks/1445425716589236338/CdQyWCbs6hAGWwYWJWZI2w5-xR6dlbDQtd3ztFO7OluWM8kzAZttcOUCr12nhKob58Lo";
-        const START_HOUR = 15; // 3 sore
-        const END_HOUR = 24;   // 12 malam (00:00)
+        const START_HOUR = 12; // 12 siang (12:00) - DIUBAH DARI 15
+        const END_HOUR = 24;   // 12 malam (00:00)
         
-        // Data Chip Produk (Chip Merah diubah nilainya menjadi 30)
+        // Data Chip Produk (Chip Ungu diubah nilainya menjadi 250 agar tidak duplikat dengan Hitam)
         const products = [
             { id: 1, name: "Chip Putih", value: 1, color_class: "chip-color-1" },
             { id: 2, name: "Chip Biru Tua", value: 10, color_class: "chip-color-10" },
-            { id: 3, name: "Chip Merah", value: 30, color_class: "chip-color-25" }, // DIUBAH DARI $25 MENJADI $30
+            { id: 3, name: "Chip Merah", value: 30, color_class: "chip-color-30" }, 
             { id: 4, name: "Chip Hijau", value: 50, color_class: "chip-color-50" },
             { id: 5, name: "Chip Hitam", value: 100, color_class: "chip-color-100" },
-            { id: 6, name: "Chip Ungu", value: 100, color_class: "chip-color-250" }, 
+            { id: 6, name: "Chip Ungu", value: 250, color_class: "chip-color-250" }, // DIUBAH MENJADI $250
             { id: 7, name: "Chip Kuning", value: 500, color_class: "chip-color-500" },
             { id: 8, name: "Chip Coklat", value: 1000, color_class: "chip-color-1000" },
             { id: 9, name: "Chip Biru Muda", value: 10000, color_class: "chip-color-10000" },
@@ -362,6 +362,7 @@
         const checkOperatingHours = () => {
             const now = new Date();
             const hour = now.getHours();
+            // Kasino buka dari 12:00 sampai 23:59:59 (karena END_HOUR adalah 24)
             return hour >= START_HOUR && hour < END_HOUR;
         };
 
@@ -370,36 +371,49 @@
             const is_open = checkOperatingHours();
             const statusIndicator = document.getElementById('status-indicator');
             const actionButton = document.getElementById('action-button');
-            const cashoutButton = document.getElementById('checkout-button-cashout'); // NEW
+            const cashoutButton = document.getElementById('checkout-button-cashout'); 
+            const buyButton = document.getElementById('checkout-button-buy'); 
 
             if (is_open) {
                 statusIndicator.innerHTML = '<span class="text-green-400">STATUS: BUKA</span> - Segera bergabung di meja!';
-                actionButton.classList.remove('hidden');
-                cashoutButton.disabled = false;
+                actionButton.classList.remove('hidden', 'btn-disabled');
+                actionButton.disabled = false;
+                
+                // Set tombol checkout penarikan (diaktifkan saat buka)
                 cashoutButton.classList.remove('btn-disabled'); 
+                cashoutButton.disabled = false;
+
+                // Tombol checkout pembelian dikendalikan oleh renderBuyCart/renderCashoutCart
             } else {
                 statusIndicator.innerHTML = '<span class="text-red-400">STATUS: TUTUP</span> - Silakan datang kembali di jam operasional.';
-                actionButton.classList.add('hidden');
-                cashoutButton.disabled = true;
+                actionButton.classList.add('hidden', 'btn-disabled');
+                actionButton.disabled = true;
+
+                // Set tombol checkout penarikan (dinonaktifkan saat tutup)
                 cashoutButton.classList.add('btn-disabled'); 
+                cashoutButton.disabled = true;
+
+                buyButton.classList.add('btn-disabled');
+                buyButton.disabled = true;
             }
         };
 
         // Fungsi yang dipanggil saat tombol aksi (Lanjutkan Taruhan) diklik (Bagian 1)
         const promptCasinoAction = () => {
-            const statusIndicator = document.getElementById('status-indicator');
-            statusIndicator.innerHTML = '<span class="text-yellow-400">Anda siap bertaruh!</span> Harap lanjutkan komunikasi di dalam game.';
-            statusIndicator.classList.remove('hidden');
-            
-            setTimeout(() => {
-                updateCasinoStatus();
-            }, 5000);
+            Swal.fire({ 
+                icon: 'info', 
+                title: 'Siap Bertaruh!', 
+                text: 'Silakan lanjutkan ke meja taruhan di dalam game. Transaksi chip dilakukan melalui mesin di bawah.', 
+                background: '#1a1a1a', 
+                color: '#fff', 
+                confirmButtonColor: '#a855f7' 
+            });
         };
 
 
         // --- LOGIKA TOKO CHIP (Bagian 2 & 3) ---
         
-        // Fungsi untuk Menghitung Total Uang yang Dikeluarkan
+        // Fungsi untuk Menghitung Total Uang yang Dikeluarkan/Diterima
         const calculateTotal = (cartData, totalElementId) => {
             let total = 0;
             for (const id in cartData) {
@@ -415,7 +429,7 @@
         // Menambah item (chip) ke keranjang pembelian
         const addToBuyCart = (productId) => {
             if (!checkOperatingHours()) {
-                Swal.fire({ icon: 'warning', title: 'Toko Tutup', text: 'Kasino beroperasi pukul 15:00 - 24:00 WIB.', background: '#1a1a1a', color: '#fff', confirmButtonColor: '#a855f7' });
+                Swal.fire({ icon: 'warning', title: 'Toko Tutup', text: 'Kasino beroperasi pukul 12:00 - 24:00 WIB.', background: '#1a1a1a', color: '#fff', confirmButtonColor: '#a855f7' });
                 return;
             }
             
@@ -427,7 +441,7 @@
          // Menambah item (chip) ke keranjang penarikan
         const addToCashoutCart = (productId) => {
             if (!checkOperatingHours()) {
-                Swal.fire({ icon: 'warning', title: 'Toko Tutup', text: 'Kasino beroperasi pukul 15:00 - 24:00 WIB.', background: '#1a1a1a', color: '#fff', confirmButtonColor: '#a855f7' });
+                Swal.fire({ icon: 'warning', title: 'Toko Tutup', text: 'Kasino beroperasi pukul 12:00 - 24:00 WIB.', background: '#1a1a1a', color: '#fff', confirmButtonColor: '#a855f7' });
                 return;
             }
             
@@ -439,7 +453,7 @@
         // Mengubah kuantitas item (chip) di keranjang pembelian
         const updateBuyQuantity = (productId, change) => {
             if (!checkOperatingHours()) {
-                Swal.fire({ icon: 'warning', title: 'Toko Tutup', text: 'Kasino beroperasi pukul 15:00 - 24:00 WIB.', background: '#1a1a1a', color: '#fff', confirmButtonColor: '#a855f7' });
+                Swal.fire({ icon: 'warning', title: 'Toko Tutup', text: 'Kasino beroperasi pukul 12:00 - 24:00 WIB.', background: '#1a1a1a', color: '#fff', confirmButtonColor: '#a855f7' });
                 return;
             }
 
@@ -455,7 +469,7 @@
         // Mengubah kuantitas item (chip) di keranjang penarikan
         const updateCashoutQuantity = (productId, change) => {
             if (!checkOperatingHours()) {
-                Swal.fire({ icon: 'warning', title: 'Toko Tutup', text: 'Kasino beroperasi pukul 15:00 - 24:00 WIB.', background: '#1a1a1a', color: '#fff', confirmButtonColor: '#a855f7' });
+                Swal.fire({ icon: 'warning', title: 'Toko Tutup', text: 'Kasino beroperasi pukul 12:00 - 24:00 WIB.', background: '#1a1a1a', color: '#fff', confirmButtonColor: '#a855f7' });
                 return;
             }
 
@@ -469,28 +483,33 @@
         };
 
 
-        // Merender Daftar Chip Pembelian
+        // Merender Daftar Chip Pembelian/Penarikan
         const renderProducts = () => {
             const productListDiv = document.getElementById('product-list');
             const cashoutProductListDiv = document.getElementById('cashout-product-list');
 
-            const mapChips = (onClickFn) => products.map(chip => `
-                <div class="chip-card p-4 rounded-xl flex flex-col justify-between shadow-sm cursor-pointer" onclick="${onClickFn}(${chip.id})">
-                    <div class="flex justify-between items-center mb-3">
-                        <h3 class="text-xl font-bold text-white">${chip.name}</h3>
-                        <span class="chip-value ${chip.color_class}">${formatCurrency(chip.value)}</span>
+            const mapChips = (onClickFn, cartType) => products.map(chip => {
+                const buttonClass = cartType === 'cashout' ? 'btn-cashout' : 'btn-action';
+                const chipColorClass = chip.color_class.replace('chip-color-25', 'chip-color-30'); // Perbaikan kelas
+                
+                return `
+                    <div class="chip-card p-4 rounded-xl flex flex-col justify-between shadow-sm cursor-pointer" onclick="${onClickFn}(${chip.id})">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-bold text-white">${chip.name}</h3>
+                            <span class="chip-value ${chipColorClass}">${formatCurrency(chip.value)}</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-gray-700">
+                            <p class="text-sm text-gray-400">Nilai Chip: ${formatCurrency(chip.value)}</p>
+                            <button class="${buttonClass} px-3 py-1 text-sm rounded-full text-white hover:scale-105" title="Tukar 1 Chip">
+                                + Pilih
+                            </button>
+                        </div>
                     </div>
-                    <div class="flex justify-between items-center pt-2 border-t border-gray-700">
-                        <p class="text-sm text-gray-400">Nilai Chip: ${formatCurrency(chip.value)}</p>
-                        <button class="btn-action px-3 py-1 text-sm rounded-full text-white hover:scale-105" title="Tukar 1 Chip">
-                            + Pilih
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+                `
+            }).join('');
 
-            productListDiv.innerHTML = mapChips('addToBuyCart');
-            cashoutProductListDiv.innerHTML = mapChips('addToCashoutCart');
+            productListDiv.innerHTML = mapChips('addToBuyCart', 'buy');
+            cashoutProductListDiv.innerHTML = mapChips('addToCashoutCart', 'cashout');
         };
 
 
@@ -557,7 +576,7 @@
                     <div class="flex items-center justify-between p-3 bg-[#1f1f1f] rounded-2xl border border-gray-700">
                         <div class="flex-grow">
                             <p class="text-white font-semibold">${item.name}</p>
-                            <p class="text-yellow-400 text-sm">Jumlah Chip: ${item.quantity}</p>
+                            <p class="text-yellow-400 text-sm">Nilai Total Chip: ${formatCurrency(item.subtotal)}</p>
                         </div>
                         <div class="flex items-center space-x-2">
                             <button onclick="updateCashoutQuantity(${item.id}, -1)" class="text-gray-300 hover:text-red-500 font-bold p-1 w-6 h-6 rounded-full border border-gray-600 hover:border-red-500 transition duration-150" title="Kurangi Kuantitas" ${isOperating ? '' : 'disabled'} >-</button>
@@ -596,15 +615,15 @@
 
             // 1. Validasi Awal
             if (!checkOperatingHours()) {
-                 Swal.fire({ icon: 'error', title: 'Gagal', text: 'Kasino tutup. Pemesanan hanya bisa dilakukan pukul 15:00 - 24:00 WIB.', background: '#1a1a1a', color: '#fff', confirmButtonColor: '#a855f7' });
+                 Swal.fire({ icon: 'error', title: 'Gagal', text: 'Kasino tutup. Pemesanan hanya bisa dilakukan pukul 12:00 - 24:00 WIB.', background: '#1a1a1a', color: '#fff', confirmButtonColor: '#a855f7' });
                  return;
             }
             if (Object.keys(currentCart).length === 0) {
-                Swal.fire({ icon: 'warning', title: 'Keranjang Kosong', text: `Silakan pilih chip yang ingin ${type === 'buy' ? 'ditukar' : 'ditarik'}.`, background: '#1a1a1a', color: '#fff' });
+                Swal.fire({ icon: 'warning', title: 'Keranjang Kosong', text: `Silakan pilih chip yang ingin ${type === 'buy' ? 'ditukar' : 'ditarik'}.`, background: '#1a1a1a', color: '#fff', confirmButtonColor: '#a855f7' });
                 return;
             }
             if (!buyerName) {
-                Swal.fire({ icon: 'error', title: 'Nama Wajib Diisi', text: 'Mohon masukkan Nama IC (RP) Anda.', background: '#1a1a1a', color: '#fff' });
+                Swal.fire({ icon: 'error', title: 'Nama Wajib Diisi', text: 'Mohon masukkan Nama IC (RP) Anda.', background: '#1a1a1a', color: '#fff', confirmButtonColor: '#a855f7' });
                 buyerNameInput.focus();
                 return;
             }
@@ -623,7 +642,7 @@
             const discordPayload = {
                 embeds: [{
                     title: `${type === 'buy' ? '♦️ PERMINTAAN PENUKARAN CHIP' : '💰 PERMINTAAN PENARIKAN CHIP'}`,
-                    description: `Permintaan ${type === 'buy' ? 'pembelian chip' : 'pencairan chip'} dari kasino.`,
+                    description: `Permintaan ${type === 'buy' ? 'pembelian chip (Uang -> Chip)' : 'pencairan chip (Chip -> Uang)'} dari **${buyerName}**.`,
                     color: embedColor, 
                     fields: [
                         { name: "👤 Penukar/Penarik (IC)", value: `**${buyerName}**`, inline: false },
@@ -631,7 +650,7 @@
                         { name: `💵 TOTAL ${totalTitle}`, value: `**${totalPriceText}**`, inline: true },
                         { name: "🕒 Waktu", value: new Date().toLocaleString('id-ID'), inline: true }
                     ],
-                    footer: { text: "High Roller Casino Exchange System" }
+                    footer: { text: "High Roller Casino Exchange System | Harap segera layani." }
                 }]
             };
 
@@ -641,9 +660,11 @@
             checkoutButton.disabled = true;
 
             try {
-                 if (DISCORD_ORDER_WEBHOOK.includes("https://discord.com/api/webhooks/1445437735899762819/nG4A71hgjBc3KyIOtBKmYV2jz8CHtkzwFTgZY3q2txPkHMKkuKkRjp6ljKCJbD3quZ8Y")) {
-                     console.warn("Webhook URL belum diatur. Simulasi sukses.");
+                // Gunakan URL Placeholder untuk simulasi
+                if (DISCORD_ORDER_WEBHOOK.includes("1445425716589236338")) { 
+                    console.warn("Webhook URL belum diatur atau masih placeholder. Simulasi sukses.");
                 } else {
+                    // Coba kirim ke Webhook yang diatur
                     const response = await fetch(DISCORD_ORDER_WEBHOOK, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -673,24 +694,23 @@
                  Swal.fire({ 
                     icon: 'error', 
                     title: 'Gagal Mengirim', 
-                    text: `Terjadi kesalahan: ${error.message}. Cek konsol.`, 
+                    text: `Terjadi kesalahan saat mengirim permintaan. Mohon hubungi Mr04 secara langsung. Detail: ${error.message}`, 
                     background: '#1a1a1a', 
                     color: '#fff',
                     confirmButtonColor: '#a855f7'
                 });
             } finally {
                 checkoutButton.innerHTML = (type === 'buy' ? "Kirim Pesanan Penukaran" : "Tukarkan Uang");
-                checkoutButton.classList.remove('btn-disabled');
-                checkoutButton.disabled = false;
+                // Perlu panggil render cart lagi untuk memastikan status tombol kembali normal jika keranjang tidak kosong
+                if (type === 'buy') renderBuyCart(); else renderCashoutCart();
+                // Jika error saat buka/tutup, tombol tetap nonaktif
+                updateCasinoStatus(); 
             }
         };
 
 
         // Inisialisasi saat memuat halaman
         window.onload = () => {
-            // Pasang event listener untuk formulir penarikan (tidak lagi dibutuhkan karena tombol di luar form)
-            // Namun, pastikan tombol penarikan memanggil checkoutToDiscord('cashout')
-            
             renderProducts();
             renderBuyCart();
             renderCashoutCart();
@@ -698,11 +718,12 @@
 
             // Atur timer untuk refresh status setiap 1 menit (jika waktu berubah)
             setInterval(() => {
-                 renderBuyCart(); // Perbarui kedua keranjang
+                 renderBuyCart(); 
                  renderCashoutCart();
                  updateCasinoStatus();
             }, 60000); 
         };
     </script>
+
 </body>
 </html>
