@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The High Roller Casino - Penukaran & Kalkulator</title>
+    <title>The High Roller Casino - Penukaran & Kalkulator Stack</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Font Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -38,15 +42,14 @@
             box-shadow: 0 25px 60px -15px rgba(108, 71, 255, 0.4);
         }
         
-        /* Chip Card Style */
         .chip-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             background: linear-gradient(145deg, #251042, #140726);
             border: 1px solid rgba(108, 71, 255, 0.2);
             border-radius: 1.5rem;
+            padding: 1rem;
         }
         .chip-card:hover {
-            transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
             border-color: var(--purple-accent);
         }
@@ -60,12 +63,10 @@
             transform: scale(1.02);
         }
 
-        /* Result Buttons Glow Effects */
         .btn-red-glow:hover { box-shadow: 0 0 20px #ef4444; border-color: #ef4444; }
         .btn-black-glow:hover { box-shadow: 0 0 20px #ffffff44; border-color: #ffffff; }
         .btn-green-glow:hover { box-shadow: 0 0 20px #22c55e; border-color: #22c55e; }
         
-        /* Phone Style Calculator */
         .phone-calc {
             background: #000000;
             border-radius: 2rem;
@@ -92,15 +93,20 @@
 
         .chip-color-1 { background-color: #f3f4f6; color: #1f2937; }
         .chip-color-10 { background-color: #1e3a8a; color: #ffffff; }
-        .chip-color-25 { background-color: #b91c1c; color: #ffffff; }
+        .chip-color-30 { background-color: #b91c1c; color: #ffffff; }
         .chip-color-50 { background-color: #059669; color: #ffffff; }
         .chip-color-100 { background-color: #000000; color: #ffffff; border: 1px solid #4b5563; }
-        .chip-color-250 { background-color: #6d28d9; color: #ffffff; }
+        .chip-color-200 { background-color: #6d28d9; color: #ffffff; }
         .chip-color-500 { background-color: #fcd34d; color: #1f2937; }
         .chip-color-1000 { background-color: #78350f; color: #ffffff; }
         .chip-color-10000 { background-color: #38bdf8; color: #1f2937; }
         
         .btn-cashout { background: linear-gradient(90deg, #eab308, #b45309); }
+
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -143,9 +149,10 @@
                 </div>
                 <div class="relative group">
                     <div class="absolute inset-0 bg-purple-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                    <!-- Menggunakan Unsplash Image untuk suasana Kasino Mewah -->
                     <img src="casino.png" 
                          alt="Interior Casino Eksklusif" 
-                         class="rounded-3xl shadow-2xl relative border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
+                         class="rounded-3xl shadow-2xl relative border border-white/10 grayscale hover:grayscale-0 transition-all duration-700 w-full h-72 object-cover">
                     <p class="mt-3 text-center text-xs text-gray-500 uppercase tracking-widest">Ruang Utama High Roller</p>
                 </div>
             </section>
@@ -165,31 +172,31 @@
                     <p class="text-3xl font-black text-green-400">x15</p>
                 </div>
             </section>
-
-
             
-            <!-- BAGIAN 3: BELI CHIP -->
+            <!-- BAGIAN 3: BELI CHIP (SISTEM STACK) -->
             <section class="border-t border-purple-900/50 pt-12">
                 <div class="flex flex-col lg:flex-row gap-10">
                     <div class="lg:w-2/3">
-                        <h2 class="text-3xl font-bold text-white mb-8">Beli Chip Tunai</h2>
-                        <div id="product-list" class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
+                        <h2 class="text-3xl font-bold text-white mb-8"><i class="fas fa-cart-plus mr-3 text-purple-500"></i>Beli Chip Tunai (Input Barang)</h2>
+                        <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                             <!-- JS Render -->
                         </div>
                     </div>
                     
                     <aside class="lg:w-1/3">
-                        <div class="bg-black/40 p-8 rounded-[2rem] border border-purple-500/20">
-                            <h2 class="text-2xl font-bold mb-6 text-purple-highlight">Keranjang</h2>
-                            <div id="cart-items" class="min-h-[100px] max-h-[300px] overflow-y-auto mb-6 space-y-3">
+                        <div class="bg-black/40 p-8 rounded-[2rem] border border-purple-500/20 sticky top-10">
+                            <h2 class="text-2xl font-bold mb-6 text-purple-highlight flex items-center gap-2">
+                                <i class="fas fa-shopping-basket"></i> Keranjang Beli
+                            </h2>
+                            <div id="cart-items" class="min-h-[100px] max-h-[300px] overflow-y-auto mb-6 space-y-3 pr-2">
                                 <!-- JS Render -->
                             </div>
-                            <div class="space-y-4">
-                                <div class="flex justify-between items-end border-t border-white/5 pt-4">
+                            <div class="space-y-4 pt-4 border-t border-white/10">
+                                <div class="flex justify-between items-end">
                                     <span class="text-gray-400 font-bold text-xs uppercase">Total Bayar</span>
                                     <span id="total-price" class="text-4xl font-black text-purple-accent">$0</span>
                                 </div>
-                                <input type="text" id="buyer-name" placeholder="NAMA IC (RP)" class="w-full p-4 bg-black border border-purple-500/30 rounded-xl text-white">
+                                <input type="text" id="buyer-name" placeholder="NAMA IC (RP)" class="w-full p-4 bg-black border border-purple-500/30 rounded-xl text-white outline-none focus:border-purple-500">
                                 <button onclick="checkoutToDiscord('buy')" class="btn-action w-full py-4 rounded-xl text-white font-bold uppercase">PROSES PENUKARAN</button>
                             </div>
                         </div>
@@ -201,24 +208,26 @@
             <section class="border-t border-purple-900/50 pt-12">
                 <div class="flex flex-col lg:flex-row gap-10">
                     <div class="lg:w-2/3">
-                        <h2 class="text-3xl font-bold text-yellow-500 mb-8">Penarikan Tunai</h2>
-                        <div id="cashout-product-list" class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
+                        <h2 class="text-3xl font-bold text-yellow-500 mb-8"><i class="fas fa-hand-holding-usd mr-3"></i>Penarikan Tunai</h2>
+                        <div id="cashout-product-list" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                             <!-- JS Render -->
                         </div>
                     </div>
 
                     <aside class="lg:w-1/3">
-                        <div class="bg-black/40 p-8 rounded-[2rem] border border-yellow-500/20">
-                            <h2 class="text-2xl font-bold mb-6 text-yellow-500">Draft Tarik</h2>
-                            <div id="cashout-cart-items" class="min-h-[100px] max-h-[300px] overflow-y-auto mb-6 space-y-3">
+                        <div class="bg-black/40 p-8 rounded-[2rem] border border-yellow-500/20 sticky top-10">
+                            <h2 class="text-2xl font-bold mb-6 text-yellow-500 flex items-center gap-2">
+                                <i class="fas fa-file-invoice-dollar"></i> Draft Tarik
+                            </h2>
+                            <div id="cashout-cart-items" class="min-h-[100px] max-h-[300px] overflow-y-auto mb-6 space-y-3 pr-2">
                                 <!-- JS Render -->
                             </div>
-                            <div class="space-y-4">
-                                <div class="flex justify-between items-end border-t border-white/5 pt-4">
-                                    <span class="text-gray-400 font-bold text-xs uppercase">Diterima</span>
+                            <div class="space-y-4 pt-4 border-t border-white/10">
+                                <div class="flex justify-between items-end">
+                                    <span class="text-gray-400 font-bold text-xs uppercase">Diterima Pemain</span>
                                     <span id="total-cashout" class="text-4xl font-black text-yellow-500">$0</span>
                                 </div>
-                                <input type="text" id="cashout-name" placeholder="NAMA IC (RP)" class="w-full p-4 bg-black border border-yellow-500/30 rounded-xl text-white">
+                                <input type="text" id="cashout-name" placeholder="NAMA IC (RP)" class="w-full p-4 bg-black border border-yellow-500/30 rounded-xl text-white outline-none focus:border-yellow-500">
                                 <button onclick="checkoutToDiscord('cashout')" class="btn-cashout w-full py-4 rounded-xl text-white font-bold uppercase transition-all hover:scale-105 shadow-lg shadow-yellow-500/20">TARIK UANG SEKARANG</button>
                             </div>
                         </div>
@@ -226,71 +235,86 @@
                 </div>
             </section>
 
-                        <!-- BARU: PANEL KONTROL DEALER (HASIL RODA) -->
+            <!-- PANEL KONTROL DEALER -->
             <section class="bg-[#150a26] p-10 rounded-[2.5rem] border border-purple-500/30 shadow-xl">
                 <div class="text-center mb-8">
                     <h2 class="text-2xl font-bold text-white uppercase tracking-widest">Panel Kontrol Dealer</h2>
                     <p class="text-gray-400 text-sm mt-1">Klik warna di bawah untuk mengirimkan hasil putaran ke Discord</p>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <button onclick="sendResultToDiscord('MERAH', 'red')" class="btn-red-glow py-6 bg-red-600 rounded-2xl text-white font-black text-2xl tracking-tighter transition-all hover:scale-105 border-2 border-transparent">
-                        MERAH
-                    </button>
-                    <button onclick="sendResultToDiscord('HITAM', 'black')" class="btn-black-glow py-6 bg-zinc-950 rounded-2xl text-white font-black text-2xl tracking-tighter transition-all hover:scale-105 border-2 border-transparent">
-                        HITAM
-                    </button>
-                    <button onclick="sendResultToDiscord('HIJAU', 'green')" class="btn-green-glow py-6 bg-green-600 rounded-2xl text-white font-black text-2xl tracking-tighter transition-all hover:scale-105 border-2 border-transparent">
-                        HIJAU
-                    </button>
+                    <button onclick="sendResultToDiscord('MERAH', 'red')" class="btn-red-glow py-6 bg-red-600 rounded-2xl text-white font-black text-2xl tracking-tighter transition-all hover:scale-105 border-2 border-transparent">MERAH</button>
+                    <button onclick="sendResultToDiscord('HITAM', 'black')" class="btn-black-glow py-6 bg-zinc-950 rounded-2xl text-white font-black text-2xl tracking-tighter transition-all hover:scale-105 border-2 border-transparent">HITAM</button>
+                    <button onclick="sendResultToDiscord('HIJAU', 'green')" class="btn-green-glow py-6 bg-green-600 rounded-2xl text-white font-black text-2xl tracking-tighter transition-all hover:scale-105 border-2 border-transparent">HIJAU</button>
                 </div>
             </section>
 
-            <!-- BAGIAN 5: KALKULATOR GAYA HP (PALING BAWAH) -->
+            <!-- BAGIAN 5: PAYOUT ASSISTANT & KALKULATOR GAYA HP -->
             <section class="border-t border-purple-900/50 pt-16 pb-10">
-                <div class="text-center mb-8">
-                    <h2 class="text-3xl font-bold text-white mb-2 uppercase">Kalkulator Kasino</h2>
-                    <p class="text-gray-500">Gunakan untuk menghitung cepat taruhan atau kemenangan Anda</p>
-                </div>
-                
-                <div class="phone-calc">
-                    <!-- Display -->
-                    <div class="text-right px-4 mb-4">
-                        <div id="calc-history" class="text-gray-500 text-sm h-6 overflow-hidden"></div>
-                        <div id="calc-screen" class="text-white text-5xl font-light truncate">0</div>
-                    </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
                     
-                    <!-- Buttons -->
-                    <div class="grid grid-cols-4 gap-3">
-                        <button onclick="calcClear()" class="calc-btn btn-spec">AC</button>
-                        <button onclick="calcOp('invert')" class="calc-btn btn-spec">+/-</button>
-                        <button onclick="calcOp('%')" class="calc-btn btn-spec">%</button>
-                        <button onclick="calcOp('/')" class="calc-btn btn-op">÷</button>
-                        
-                        <button onclick="calcNum('7')" class="calc-btn btn-num">7</button>
-                        <button onclick="calcNum('8')" class="calc-btn btn-num">8</button>
-                        <button onclick="calcNum('9')" class="calc-btn btn-num">9</button>
-                        <button onclick="calcOp('*')" class="calc-btn btn-op">×</button>
-                        
-                        <button onclick="calcNum('4')" class="calc-btn btn-num">4</button>
-                        <button onclick="calcNum('5')" class="calc-btn btn-num">5</button>
-                        <button onclick="calcNum('6')" class="calc-btn btn-num">6</button>
-                        <button onclick="calcOp('-')" class="calc-btn btn-op">-</button>
-                        
-                        <button onclick="calcNum('1')" class="calc-btn btn-num">1</button>
-                        <button onclick="calcNum('2')" class="calc-btn btn-num">2</button>
-                        <button onclick="calcNum('3')" class="calc-btn btn-num">3</button>
-                        <button onclick="calcOp('+')" class="calc-btn btn-op">+</button>
-                        
-                        <button onclick="calcNum('0')" class="calc-btn btn-num col-span-2 !aspect-auto !justify-start pl-8">0</button>
-                        <button onclick="calcNum('.')" class="calc-btn btn-num">.</button>
-                        <button onclick="calcEquals()" class="calc-btn btn-op">=</button>
+                    <!-- Payout Assistant -->
+                    <div class="bg-indigo-950/30 border border-indigo-500/30 p-8 rounded-[2.5rem] h-full shadow-2xl">
+                        <h3 class="text-2xl font-bold text-white mb-6 uppercase flex items-center gap-3">
+                            <i class="fas fa-calculator text-indigo-400"></i> Payout Assistant
+                        </h3>
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-[10px] uppercase font-bold text-gray-400 mb-2 block tracking-widest">Total Kemenangan ($)</label>
+                                <input type="number" id="payout-amount" oninput="calculatePayout()" placeholder="Masukkan $..." class="w-full bg-slate-900 border border-indigo-500/30 p-4 rounded-xl text-white font-bold">
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase font-bold text-gray-400 mb-2 block tracking-widest">Pilih Chip Payout</label>
+                                <select id="payout-chip-id" onchange="calculatePayout()" class="w-full bg-slate-900 border border-indigo-500/30 p-4 rounded-xl text-white text-sm font-bold appearance-none">
+                                    <!-- JS Render -->
+                                </select>
+                            </div>
+                            <div id="payout-result-box" class="p-6 bg-black/50 rounded-2xl border border-indigo-500/20 text-center">
+                                <p class="text-xs text-gray-400 uppercase font-bold mb-2">Berikan ke Pemain:</p>
+                                <div id="payout-text" class="text-2xl font-black text-indigo-400 tracking-tight">0 Stack + 0 Item</div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Phone Style Calculator -->
+                    <div>
+                        <div class="text-center mb-6">
+                            <h3 class="text-xl font-bold text-white uppercase"><i class="fas fa-mobile-alt mr-2"></i>Kalkulator Umum</h3>
+                        </div>
+                        <div class="phone-calc">
+                            <div class="text-right px-4 mb-4">
+                                <div id="calc-history" class="text-gray-500 text-sm h-6 overflow-hidden"></div>
+                                <div id="calc-screen" class="text-white text-5xl font-light truncate">0</div>
+                            </div>
+                            <div class="grid grid-cols-4 gap-3">
+                                <button onclick="calcClear()" class="calc-btn btn-spec">AC</button>
+                                <button onclick="calcOp('invert')" class="calc-btn btn-spec">+/-</button>
+                                <button onclick="calcOp('%')" class="calc-btn btn-spec">%</button>
+                                <button onclick="calcOp('/')" class="calc-btn btn-op">÷</button>
+                                <button onclick="calcNum('7')" class="calc-btn btn-num">7</button>
+                                <button onclick="calcNum('8')" class="calc-btn btn-num">8</button>
+                                <button onclick="calcNum('9')" class="calc-btn btn-num">9</button>
+                                <button onclick="calcOp('*')" class="calc-btn btn-op">×</button>
+                                <button onclick="calcNum('4')" class="calc-btn btn-num">4</button>
+                                <button onclick="calcNum('5')" class="calc-btn btn-num">5</button>
+                                <button onclick="calcNum('6')" class="calc-btn btn-num">6</button>
+                                <button onclick="calcOp('-')" class="calc-btn btn-op">-</button>
+                                <button onclick="calcNum('1')" class="calc-btn btn-num">1</button>
+                                <button onclick="calcNum('2')" class="calc-btn btn-num">2</button>
+                                <button onclick="calcNum('3')" class="calc-btn btn-num">3</button>
+                                <button onclick="calcOp('+')" class="calc-btn btn-op">+</button>
+                                <button onclick="calcNum('0')" class="calc-btn btn-num col-span-2 !aspect-auto !justify-start pl-8">0</button>
+                                <button onclick="calcNum('.')" class="calc-btn btn-num">.</button>
+                                <button onclick="calcEquals()" class="calc-btn btn-op">=</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </section>
         </main>
 
         <footer class="mt-10 pt-10 border-t border-purple-900/50 text-center text-gray-600 text-sm">
-            <p class="font-bold">HIGH ROLLER CASINO SYSTEM v3.0</p>
+            <p class="font-bold text-purple-400">HIGH ROLLER CASINO SYSTEM v4.0 (Minecraft Pro Edition)</p>
             <p>© 2024 Dikelola oleh Rebelze Financial Ops.</p>
         </footer>
 
@@ -300,40 +324,169 @@
         const DISCORD_ORDER_WEBHOOK = "https://discord.com/api/webhooks/1445425716589236338/CdQyWCbs6hAGWwYWJWZI2w5-xR6dlbDQtd3ztFO7OluWM8kzAZttcOUCr12nhKob58Lo";
         
         const products = [
-            { id: 1, name: "Chip Putih", value: 1, color_class: "chip-color-1" },
-            { id: 2, name: "Chip Biru Tua", value: 10, color_class: "chip-color-10" },
-            { id: 3, name: "Chip Merah", value: 30, color_class: "chip-color-25" },
-            { id: 4, name: "Chip Hijau", value: 50, color_class: "chip-color-50" },
-            { id: 5, name: "Chip Hitam", value: 100, color_class: "chip-color-100" },
-            { id: 6, name: "Chip Ungu", value: 200, color_class: "chip-color-250" }, 
-            { id: 7, name: "Chip Kuning", value: 500, color_class: "chip-color-500" },
-            { id: 8, name: "Chip Coklat", value: 1000, color_class: "chip-color-1000" },
-            { id: 9, name: "Chip Biru Muda", value: 10000, color_class: "chip-color-10000" },
+            { id: 1, name: "Chip Putih", value: 1, color_class: "chip-color-1", icon: "fa-circle-dot" },
+            { id: 2, name: "Chip Biru Tua", value: 10, color_class: "chip-color-10", icon: "fa-bahai" },
+            { id: 3, name: "Chip Merah", value: 30, color_class: "chip-color-30", icon: "fa-clover" },
+            { id: 4, name: "Chip Hijau", value: 50, color_class: "chip-color-50", icon: "fa-leaf" },
+            { id: 5, name: "Chip Hitam", value: 100, color_class: "chip-color-100", icon: "fa-skull" },
+            { id: 6, name: "Chip Ungu", value: 200, color_class: "chip-color-200", icon: "fa-crown" }, 
+            { id: 7, name: "Chip Kuning", value: 500, color_class: "chip-color-500", icon: "fa-sun" },
+            { id: 8, name: "Chip Coklat", value: 1000, color_class: "chip-color-1000", icon: "fa-horse" },
+            { id: 9, name: "Chip Biru Muda", value: 10000, color_class: "chip-color-10000", icon: "fa-gem" },
         ];
 
-        let buyCart = {};
+        let buyCart = {}; 
         let cashoutCart = {};
 
         const formatCurrency = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(n);
 
-        // --- BARU: LOGIKA HASIL DEALER ---
-        const sendResultToDiscord = async (colorLabel, colorKey) => {
-            const colorMap = {
-                'red': 15548997,   // Red hex
-                'black': 0,        // Black hex
-                'green': 5763719   // Green hex
-            };
+        const renderProducts = () => {
+            const listBuy = document.getElementById('product-list');
+            const listCash = document.getElementById('cashout-product-list');
+
+            const content = (type) => products.map(p => `
+                <div class="chip-card flex flex-col gap-4 border-l-4 border-purple-500/30">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">${p.name}</p>
+                            <p class="text-xl font-black text-white">$${p.value.toLocaleString()}</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full ${p.color_class} shadow-lg border-2 border-white/10 flex items-center justify-center">
+                            <i class="fas ${p.icon} text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="updateQuantity('${type}', ${p.id}, 64)" class="bg-purple-900/40 hover:bg-purple-600 transition py-2 rounded-lg text-[10px] font-black uppercase">+1 STACK</button>
+                        <button onclick="updateQuantity('${type}', ${p.id}, 1)" class="bg-purple-900/40 hover:bg-purple-600 transition py-2 rounded-lg text-[10px] font-black uppercase">+1 ITEM</button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="number" placeholder="Manual..." onchange="setQuantity('${type}', ${p.id}, this.value)" 
+                            class="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-center outline-none focus:border-purple-500">
+                    </div>
+                </div>
+            `).join('');
+
+            listBuy.innerHTML = content('buy');
+            listCash.innerHTML = content('cashout');
+            document.getElementById('payout-chip-id').innerHTML = products.map(p => `<option value="${p.id}">${p.name} ($${p.value})</option>`).join('');
+        };
+
+        const updateQuantity = (type, id, amount) => {
+            const cart = type === 'buy' ? buyCart : cashoutCart;
+            cart[id] = (cart[id] || 0) + amount;
+            type === 'buy' ? renderBuyCart() : renderCashoutCart();
+        };
+
+        const setQuantity = (type, id, val) => {
+            const cart = type === 'buy' ? buyCart : cashoutCart;
+            cart[id] = parseInt(val) || 0;
+            if (cart[id] <= 0) delete cart[id];
+            type === 'buy' ? renderBuyCart() : renderCashoutCart();
+        };
+
+        const renderBuyCart = () => {
+            const container = document.getElementById('cart-items');
+            let html = '', total = 0;
+            Object.keys(buyCart).forEach(id => {
+                const p = products.find(x => x.id == id);
+                const qty = buyCart[id];
+                total += p.value * qty;
+                const s = Math.floor(qty / 64);
+                const i = qty % 64;
+                html += `<div class="bg-white/5 p-4 rounded-xl border border-white/5">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-black uppercase text-purple-300">${p.name}</span>
+                        <span class="text-sm font-black text-green-400">$${(p.value * qty).toLocaleString()}</span>
+                    </div>
+                    <p class="text-[10px] text-gray-400 mt-1 uppercase font-bold">
+                        ${s > 0 ? `${s} Stack` : ''} ${s > 0 && i > 0 ? '+ ' : ''} ${i > 0 ? `${i} Item` : ''} (${qty} Total)
+                    </p>
+                    <div class="flex gap-2 mt-3">
+                        <button onclick="setQuantity('buy', ${id}, 0)" class="text-[9px] bg-red-900/30 text-red-400 px-3 py-1 rounded-full uppercase font-bold">Hapus</button>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html || '<p class="text-center text-gray-500 py-4 text-sm italic">Gunakan tombol +Stack atau +Item...</p>';
+            document.getElementById('total-price').innerText = formatCurrency(total);
+        };
+
+        const renderCashoutCart = () => {
+            const container = document.getElementById('cashout-cart-items');
+            let html = '', total = 0;
+            Object.keys(cashoutCart).forEach(id => {
+                const p = products.find(x => x.id == id);
+                const qty = cashoutCart[id];
+                total += p.value * qty;
+                const s = Math.floor(qty / 64);
+                const i = qty % 64;
+                html += `<div class="bg-white/5 p-4 rounded-xl border border-white/5">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-black uppercase text-yellow-500">${p.name}</span>
+                        <span class="text-sm font-black text-yellow-400">$${(p.value * qty).toLocaleString()}</span>
+                    </div>
+                    <p class="text-[10px] text-gray-400 mt-1 uppercase font-bold">
+                        ${s > 0 ? `${s} Stack` : ''} ${s > 0 && i > 0 ? '+ ' : ''} ${i > 0 ? `${i} Item` : ''} (${qty} Total)
+                    </p>
+                    <div class="flex gap-2 mt-3">
+                        <button onclick="setQuantity('cashout', ${id}, 0)" class="text-[9px] bg-red-900/30 text-red-400 px-3 py-1 rounded-full uppercase font-bold">Hapus</button>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html || '<p class="text-center text-gray-600 py-4 text-sm italic">Pilih chip untuk ditarik...</p>';
+            document.getElementById('total-cashout').innerText = formatCurrency(total);
+        };
+
+        const calculatePayout = () => {
+            const amount = parseInt(document.getElementById('payout-amount').value) || 0;
+            const chipId = document.getElementById('payout-chip-id').value;
+            const chip = products.find(c => c.id == chipId);
+            const resultBox = document.getElementById('payout-text');
+
+            if (amount <= 0) {
+                resultBox.innerText = "0 Stack + 0 Item";
+                return;
+            }
+
+            const totalNeeded = Math.ceil(amount / chip.value);
+            const s = Math.floor(totalNeeded / 64);
+            const i = totalNeeded % 64;
+
+            resultBox.innerText = `${s} Stack + ${i} Item`;
+            
+            const totalVal = totalNeeded * chip.value;
+            if (totalVal > amount) {
+                const sisa = totalVal - amount;
+                resultBox.innerHTML += `<br><span class="text-[9px] text-yellow-500 uppercase font-bold tracking-tighter">(Kelebihan: $${sisa.toLocaleString()})</span>`;
+            }
+        };
+
+        const checkoutToDiscord = async (type) => {
+            const nameField = document.getElementById(type === 'buy' ? 'buyer-name' : 'cashout-name');
+            const name = nameField.value.trim();
+            const cart = type === 'buy' ? buyCart : cashoutCart;
+            const total = document.getElementById(type === 'buy' ? 'total-price' : 'total-cashout').innerText;
+
+            if (!name) return Swal.fire({ icon: 'error', title: 'Nama Wajib Diisi', text: 'Masukkan nama IC pemain.', background: '#1a0b2e', color: '#fff' });
+            if (Object.keys(cart).length === 0) return Swal.fire({ icon: 'info', title: 'Keranjang Kosong', text: 'Tambahkan chip terlebih dahulu.', background: '#1a0b2e', color: '#fff' });
+
+            const itemLines = Object.keys(cart).map(id => {
+                const p = products.find(x => x.id == id);
+                const qty = cart[id];
+                const s = Math.floor(qty / 64);
+                const i = qty % 64;
+                return `• **${p.name}**: ${s} Stack + ${i} Item (Total: ${qty})`;
+            }).join('\n');
 
             const payload = {
                 embeds: [{
-                    title: "🎰 HASIL RODA KEBERUNTUNGAN",
-                    description: "Seorang Dealer telah memutar roda kasino.",
-                    color: colorMap[colorKey],
+                    title: type === 'buy' ? "🏛️ PENUKARAN CHIP (BARANG -> TUNAI)" : "💰 PENARIKAN TUNAI (TUNAI -> BARANG)",
+                    color: type === 'buy' ? 11027199 : 16766720,
                     fields: [
-                        { name: "Warna Yang Keluar", value: `**${colorLabel}**`, inline: true },
-                        { name: "Status Kasino", value: "🔴 Live Result", inline: true }
+                        { name: "Pemain (IC)", value: `**${name}**`, inline: true },
+                        { name: "Total Uang", value: `**${total}**`, inline: true },
+                        { name: "Arsip Stack/Item", value: itemLines }
                     ],
-                    footer: { text: "High Roller Casino Management" },
+                    footer: { text: "High Roller Advanced Stacker • Rebel City" },
                     timestamp: new Date().toISOString()
                 }]
             };
@@ -345,207 +498,61 @@
                     body: JSON.stringify(payload)
                 });
                 if (res.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: `Warna ${colorLabel} Terkirim!`,
-                        text: 'Hasil roda telah dipublikasikan ke Discord.',
-                        timer: 1500,
-                        showConfirmButton: false,
-                        background: '#1a0b2e',
-                        color: '#fff'
-                    });
+                    Swal.fire({ icon: 'success', title: 'Arsip Berhasil', text: 'Data telah dikirim ke Discord.', background: '#1a0b2e', color: '#fff' });
+                    if (type === 'buy') { buyCart = {}; nameField.value = ''; renderBuyCart(); }
+                    else { cashoutCart = {}; nameField.value = ''; renderCashoutCart(); }
                 }
             } catch (e) {
-                Swal.fire('Error', 'Gagal mengirim hasil ke Discord.', 'error');
+                Swal.fire('Error', 'Gagal mengirim ke Discord.', 'error');
             }
         };
 
-        // --- LOGIKA KALKULATOR HP ---
-        let currentInput = '0';
-        let previousInput = '';
-        let operation = null;
-        let shouldResetScreen = false;
+        const sendResultToDiscord = async (colorLabel, colorKey) => {
+            const colorMap = { 'red': 15548997, 'black': 0, 'green': 5763719 };
+            const payload = {
+                embeds: [{
+                    title: "🎰 HASIL RODA KEBERUNTUNGAN",
+                    description: "Seorang Dealer telah memutar roda kasino.",
+                    color: colorMap[colorKey],
+                    fields: [
+                        { name: "Warna Yang Keluar", value: `**${colorLabel}**`, inline: true },
+                        { name: "Status", value: "🔴 Live Result", inline: true }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+            try {
+                await fetch(DISCORD_ORDER_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                Swal.fire({ icon: 'success', title: `Warna ${colorLabel} Terkirim!`, timer: 1000, showConfirmButton: false, background: '#1a0b2e', color: '#fff' });
+            } catch (e) {}
+        };
 
-        function updateScreen() {
-            document.getElementById('calc-screen').innerText = currentInput;
-        }
-
+        // --- PHONE CALC LOGIC ---
+        let currentInput = '0'; let previousInput = ''; let operation = null; let shouldResetScreen = false;
+        function updateScreen() { document.getElementById('calc-screen').innerText = currentInput; }
         function calcNum(n) {
-            if (currentInput === '0' || shouldResetScreen) {
-                currentInput = n;
-                shouldResetScreen = false;
-            } else {
-                currentInput += n;
-            }
+            if (currentInput === '0' || shouldResetScreen) { currentInput = n; shouldResetScreen = false; }
+            else { currentInput += n; }
             updateScreen();
         }
-
-        function calcClear() {
-            currentInput = '0';
-            previousInput = '';
-            operation = null;
-            document.getElementById('calc-history').innerText = '';
-            updateScreen();
-        }
-
+        function calcClear() { currentInput = '0'; previousInput = ''; operation = null; document.getElementById('calc-history').innerText = ''; updateScreen(); }
         function calcOp(op) {
-            if (op === 'invert') {
-                currentInput = (parseFloat(currentInput) * -1).toString();
-                updateScreen();
-                return;
-            }
-            if (op === '%') {
-                currentInput = (parseFloat(currentInput) / 100).toString();
-                updateScreen();
-                return;
-            }
-            
-            operation = op;
-            previousInput = currentInput;
-            document.getElementById('calc-history').innerText = previousInput + ' ' + op;
-            shouldResetScreen = true;
+            if (op === 'invert') { currentInput = (parseFloat(currentInput) * -1).toString(); updateScreen(); return; }
+            if (op === '%') { currentInput = (parseFloat(currentInput) / 100).toString(); updateScreen(); return; }
+            operation = op; previousInput = currentInput; document.getElementById('calc-history').innerText = previousInput + ' ' + op; shouldResetScreen = true;
         }
-
         function calcEquals() {
             if (!operation) return;
-            let result = 0;
-            const prev = parseFloat(previousInput);
-            const curr = parseFloat(currentInput);
-            
+            let result = 0; const prev = parseFloat(previousInput); const curr = parseFloat(currentInput);
             switch(operation) {
                 case '+': result = prev + curr; break;
                 case '-': result = prev - curr; break;
                 case '*': result = prev * curr; break;
                 case '/': result = prev / curr; break;
             }
-            
             document.getElementById('calc-history').innerText = previousInput + ' ' + operation + ' ' + currentInput + ' =';
-            currentInput = result.toString();
-            operation = null;
-            shouldResetScreen = true;
-            updateScreen();
+            currentInput = result.toString(); operation = null; shouldResetScreen = true; updateScreen();
         }
-
-        // --- LOGIKA TOKO ---
-        const addToBuyCart = (id) => {
-            buyCart[id] = (buyCart[id] || 0) + 1;
-            renderBuyCart();
-        };
-
-        const addToCashoutCart = (id) => {
-            cashoutCart[id] = (cashoutCart[id] || 0) + 1;
-            renderCashoutCart();
-        };
-
-        const updateBuyQuantity = (id, change) => {
-            buyCart[id] = (buyCart[id] || 0) + change;
-            if (buyCart[id] <= 0) delete buyCart[id];
-            renderBuyCart();
-        };
-        
-        const updateCashoutQuantity = (id, change) => {
-            cashoutCart[id] = (cashoutCart[id] || 0) + change;
-            if (cashoutCart[id] <= 0) delete cashoutCart[id];
-            renderCashoutCart();
-        };
-
-        const renderProducts = () => {
-            const listBuy = document.getElementById('product-list');
-            const listCash = document.getElementById('cashout-product-list');
-
-            const content = (onClick) => products.map(p => `
-                <div class="chip-card p-4 flex flex-col justify-between cursor-pointer" onclick="${onClick}(${p.id})">
-                    <div class="flex justify-between items-start mb-4">
-                        <p class="text-[10px] font-bold text-gray-500 uppercase">${p.name}</p>
-                        <div class="w-6 h-6 rounded-full ${p.color_class} shadow-lg"></div>
-                    </div>
-                    <div>
-                        <p class="text-xl font-black text-white">${formatCurrency(p.value)}</p>
-                    </div>
-                </div>
-            `).join('');
-
-            listBuy.innerHTML = content('addToBuyCart');
-            listCash.innerHTML = content('addToCashoutCart');
-        };
-
-        const renderBuyCart = () => {
-            const container = document.getElementById('cart-items');
-            let html = '', total = 0;
-            Object.keys(buyCart).forEach(id => {
-                const p = products.find(x => x.id == id);
-                total += p.value * buyCart[id];
-                html += `<div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
-                    <span class="text-sm font-bold">${p.name} (x${buyCart[id]})</span>
-                    <div class="flex gap-2">
-                        <button onclick="updateBuyQuantity(${id}, -1)" class="w-6 h-6 bg-red-500/20 rounded">-</button>
-                        <button onclick="updateBuyQuantity(${id}, 1)" class="w-6 h-6 bg-green-500/20 rounded">+</button>
-                    </div>
-                </div>`;
-            });
-            container.innerHTML = html || '<p class="text-center text-gray-500 py-4 text-sm italic">Pilih chip di sebelah kiri...</p>';
-            document.getElementById('total-price').innerText = formatCurrency(total);
-        };
-
-        const renderCashoutCart = () => {
-            const container = document.getElementById('cashout-cart-items');
-            let html = '', total = 0;
-            Object.keys(cashoutCart).forEach(id => {
-                const p = products.find(x => x.id == id);
-                total += p.value * cashoutCart[id];
-                html += `<div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
-                    <span class="text-sm font-bold">${p.name} (x${cashoutCart[id]})</span>
-                    <div class="flex gap-2">
-                        <button onclick="updateCashoutQuantity(${id}, -1)" class="w-6 h-6 bg-red-500/20 rounded">-</button>
-                        <button onclick="updateCashoutQuantity(${id}, 1)" class="w-6 h-6 bg-green-500/20 rounded">+</button>
-                    </div>
-                </div>`;
-            });
-            container.innerHTML = html || '<p class="text-center text-gray-600 py-4 text-sm italic">Pilih chip untuk ditarik...</p>';
-            document.getElementById('total-cashout').innerText = formatCurrency(total);
-        };
-
-        const checkoutToDiscord = async (type) => {
-            const name = document.getElementById(type === 'buy' ? 'buyer-name' : 'cashout-name').value.trim();
-            const cart = type === 'buy' ? buyCart : cashoutCart;
-            const total = document.getElementById(type === 'buy' ? 'total-price' : 'total-cashout').innerText;
-
-            if (!name) return Swal.fire('Error', 'Nama IC wajib diisi!', 'error');
-            if (Object.keys(cart).length === 0) return Swal.fire('Opps', 'Keranjang kosong.', 'info');
-
-            const items = Object.keys(cart).map(id => {
-                const p = products.find(x => x.id == id);
-                return `• ${p.name}: ${cart[id]} Pcs`;
-            }).join('\n');
-
-            const payload = {
-                embeds: [{
-                    title: type === 'buy' ? "♦️ PENUKARAN CHIP BARU" : "💰 PENARIKAN TUNAI",
-                    color: type === 'buy' ? 11027199 : 16766720,
-                    fields: [
-                        { name: "Pelaku (IC)", value: `**${name}**`, inline: true },
-                        { name: "Total", value: `**${total}**`, inline: true },
-                        { name: "Detail", value: items }
-                    ],
-                    footer: { text: "High Roller System 24/7" }
-                }]
-            };
-
-            try {
-                const res = await fetch(DISCORD_ORDER_WEBHOOK, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (res.ok) {
-                    Swal.fire('Berhasil!', 'Permintaan telah dikirim ke staf.', 'success');
-                    if (type === 'buy') { buyCart = {}; document.getElementById('buyer-name').value = ''; renderBuyCart(); }
-                    else { cashoutCart = {}; document.getElementById('cashout-name').value = ''; renderCashoutCart(); }
-                }
-            } catch (e) {
-                Swal.fire('Error', 'Gagal kirim.', 'error');
-            }
-        };
 
         window.onload = () => {
             renderProducts();
