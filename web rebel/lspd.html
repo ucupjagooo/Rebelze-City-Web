@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebel City LSPD - To Protect and Serve</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #020617;
+            color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+
+        .police-glass {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-police {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-police:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px -5px rgba(30, 64, 175, 0.5);
+        }
+
+        .blue-gradient-text {
+            background: linear-gradient(to right, #60a5fa, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .security-status {
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .minecraft-grid {
+            background-image: linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        input, select, textarea {
+            color-scheme: dark;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Security Alert Bar -->
+    <div class="bg-blue-900 text-white py-2 px-6 text-center text-[10px] font-bold uppercase tracking-[0.4em] flex items-center justify-center gap-4 border-b border-blue-500/30">
+        <i class="fas fa-shield-halved security-status text-blue-400"></i>
+        Situs Resmi Departemen Kepolisian Rebel City - Status: Kondisi Hijau (Aman)
+        <i class="fas fa-shield-halved security-status text-blue-400"></i>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="police-glass sticky top-0 z-50 px-6 py-4 flex justify-between items-center border-b border-blue-500/10">
+        <div class="flex items-center gap-3">
+            <div class="bg-blue-700 p-2.5 rounded-lg shadow-lg shadow-blue-700/30">
+                <i class="fas fa-shield-alt text-white text-xl"></i>
+            </div>
+            <span class="text-xl font-extrabold tracking-tighter uppercase">REBEL <span class="text-blue-500 italic">POLICE</span></span>
+        </div>
+        <div class="hidden md:flex gap-8 text-[11px] font-bold uppercase tracking-widest">
+            <a href="#" class="hover:text-blue-400 transition">Beranda</a>
+            <a href="#reports" class="hover:text-blue-400 transition">Laporan</a>
+            <a href="#weapon-license" class="hover:text-blue-400 transition">Izin Senjata</a>
+            <a href="#recruitment" class="hover:text-blue-400 transition">Akademi</a>
+        </div>
+        <div class="flex gap-2">
+            <button class="bg-blue-700 hover:bg-blue-800 px-5 py-2 rounded-md text-[10px] font-bold uppercase transition">MDT Login</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative py-32 px-6 overflow-hidden text-center bg-[url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center">
+        <div class="absolute inset-0 bg-slate-950/85 backdrop-blur-[2px] minecraft-grid"></div>
+        
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1 mb-8 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-[10px] font-bold uppercase tracking-widest">
+                <i class="fas fa-cube"></i> REBEL CITY MINECRAFT RP <i class="fas fa-cube"></i>
+            </div>
+            <h1 class="text-5xl md:text-8xl font-black mb-6 leading-none uppercase tracking-tighter">
+                TO PROTECT <br>& <span class="blue-gradient-text">TO SERVE.</span>
+            </h1>
+            <p class="text-slate-300 text-lg mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+                Pusat Komando Keamanan Publik. Menjaga ketertiban kota blok demi blok untuk seluruh warga Rebel City.
+            </p>
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="#reports" class="bg-blue-700 hover:bg-blue-800 px-10 py-5 rounded-lg font-black uppercase text-xs tracking-widest flex items-center gap-3 btn-police shadow-2xl shadow-blue-600/20">
+                    <i class="fas fa-file-signature"></i> Buat Laporan Kejahatan
+                </a>
+                <a href="#weapon-license" class="glass border border-blue-500/30 px-10 py-5 rounded-lg font-black uppercase text-xs tracking-widest hover:bg-blue-600/10 flex items-center gap-3 btn-police">
+                    <i class="fas fa-gun"></i> Daftar Izin Senjata
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Grid -->
+    <section id="dashboard" class="max-w-6xl mx-auto px-6 py-24">
+        <div class="mb-12">
+            <h2 class="text-3xl font-black uppercase italic flex items-center gap-4">
+                <span class="w-12 h-1 bg-blue-600 rounded-full"></span>
+                Police Dashboard
+            </h2>
+            <p class="text-slate-500 mt-2 font-medium">Akses cepat layanan kepolisian bagi warga sipil.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <button class="police-glass p-8 rounded-3xl flex flex-col items-center gap-6 group btn-police border-blue-500/20">
+                <div class="w-16 h-16 bg-blue-900/40 rounded-2xl flex items-center justify-center border border-blue-500/30 group-hover:bg-blue-700 transition duration-500">
+                    <i class="fas fa-user-lock text-2xl text-blue-400 group-hover:text-white"></i>
+                </div>
+                <div class="text-center">
+                    <h3 class="font-bold text-sm uppercase mb-1">Daftar Penjara</h3>
+                    <p class="text-[10px] text-slate-500 uppercase font-semibold">Status Narapidana</p>
+                </div>
+            </button>
+
+            <a href="#weapon-license" class="police-glass p-8 rounded-3xl flex flex-col items-center gap-6 group btn-police border-blue-500/20 text-center">
+                <div class="w-16 h-16 bg-blue-900/40 rounded-2xl flex items-center justify-center border border-blue-500/30 group-hover:bg-blue-700 transition duration-500">
+                    <i class="fas fa-id-card text-2xl text-blue-400 group-hover:text-white"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-sm uppercase mb-1">Izin Senjata</h3>
+                    <p class="text-[10px] text-slate-500 uppercase font-semibold">Verifikasi Lisensi</p>
+                </div>
+            </a>
+
+            <button class="police-glass p-8 rounded-3xl flex flex-col items-center gap-6 group btn-police border-blue-500/20">
+                <div class="w-16 h-16 bg-blue-900/40 rounded-2xl flex items-center justify-center border border-blue-500/30 group-hover:bg-blue-700 transition duration-500">
+                    <i class="fas fa-box-open text-2xl text-blue-400 group-hover:text-white"></i>
+                </div>
+                <div class="text-center">
+                    <h3 class="font-bold text-sm uppercase mb-1">Barang Bukti</h3>
+                    <p class="text-[10px] text-slate-500 uppercase font-semibold">Aset Sitaan</p>
+                </div>
+            </button>
+
+            <button class="police-glass p-8 rounded-3xl flex flex-col items-center gap-6 group btn-police border-red-500/20">
+                <div class="w-16 h-16 bg-red-950/40 rounded-2xl flex items-center justify-center border border-red-500/30 group-hover:bg-red-700 transition duration-500">
+                    <i class="fas fa-user-secret text-2xl text-red-500 group-hover:text-white"></i>
+                </div>
+                <div class="text-center">
+                    <h3 class="font-bold text-sm uppercase mb-1 text-red-400">Most Wanted</h3>
+                    <p class="text-[10px] text-red-500/60 uppercase font-semibold">Daftar Buronan</p>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <!-- WEAPON LICENSE FORM (NEW SECTION) -->
+    <section id="weapon-license" class="max-w-4xl mx-auto px-6 py-24 border-t border-slate-900">
+        <div class="police-glass p-12 rounded-[3.5rem] border-blue-500/40 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-12 opacity-5">
+                <i class="fas fa-gun text-[10rem]"></i>
+            </div>
+
+            <div class="mb-12 text-center md:text-left relative z-10">
+                <h2 class="text-4xl font-black italic uppercase italic mb-3">Pendaftaran Izin Senjata</h2>
+                <p class="text-slate-400">Formulir resmi untuk mendapatkan lisensi kepemilikan senjata legal di Rebel City.</p>
+            </div>
+
+            <form id="weaponForm" class="space-y-7 relative z-10">
+                <div class="grid md:grid-cols-2 gap-7">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-blue-500 ml-1">Nama Lengkap (IC)</label>
+                        <input type="text" id="weaponName" required placeholder="Nama Karakter" 
+                            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-6 py-4 focus:border-blue-500 outline-none transition">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-blue-500 ml-1">Umur (IC)</label>
+                        <input type="number" id="weaponAge" required placeholder="Usia IC" 
+                            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-6 py-4 focus:border-blue-500 outline-none transition">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-blue-500 ml-1">Tipe Lisensi / Senjata</label>
+                    <select id="weaponType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-6 py-4 focus:border-blue-500 outline-none cursor-pointer">
+                        <option value="Handgun (Tier 1)">Handgun / Pistol (Tier 1)</option>
+                        <option value="Hunting Rifle (Tier 2)">Hunting Rifle (Tier 2)</option>
+                        <option value="Personal Defense (Tier 3)">Personal Defense Weapon (Tier 3)</option>
+                    </select>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-blue-500 ml-1">Alasan Kepemilikan</label>
+                    <textarea id="weaponReason" rows="4" required placeholder="Jelaskan mengapa Anda membutuhkan lisensi senjata..." 
+                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-6 py-4 focus:border-blue-500 outline-none transition resize-none"></textarea>
+                </div>
+
+                <button type="submit" id="submitWeaponBtn" class="w-full bg-blue-700 hover:bg-blue-800 py-6 rounded-2xl font-black uppercase text-xs tracking-[0.4em] shadow-xl shadow-blue-700/20 transition-all active:scale-95 flex items-center justify-center gap-4">
+                    <i class="fas fa-id-card"></i> KIRIM PERMOHONAN LISENSI
+                </button>
+            </form>
+            
+            <div id="weaponSuccess" class="hidden mt-8 p-6 bg-green-500/20 border border-green-500/50 rounded-2xl text-green-400 text-center font-bold uppercase text-[10px] tracking-widest">
+                <i class="fas fa-check-circle mr-2 text-xl align-middle"></i> Permohonan lisensi telah dikirim ke Departemen Perizinan LSPD.
+            </div>
+        </div>
+    </section>
+
+    <!-- CRIME REPORT FORM -->
+    <section id="reports" class="max-w-4xl mx-auto px-6 py-24 border-t border-slate-900">
+        <div class="police-glass p-12 rounded-[3.5rem] border-blue-600/40 shadow-2xl relative overflow-hidden">
+            <div class="mb-12 text-center md:text-left relative z-10">
+                <h2 class="text-4xl font-black italic uppercase mb-3">Pusat Laporan Kejahatan</h2>
+                <p class="text-slate-400">Laporkan tindak kriminal atau kejadian darurat di lapangan.</p>
+            </div>
+
+            <form id="crimeReportForm" class="space-y-7 relative z-10">
+                <div class="grid md:grid-cols-2 gap-7">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-blue-500 ml-1">Nama Pelapor (IC)</label>
+                        <input type="text" id="reporterName" required placeholder="Nama Karakter" 
+                            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-6 py-4 focus:border-blue-500 outline-none transition">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-blue-500 ml-1">Lokasi Kejadian</label>
+                        <input type="text" id="crimeLocation" required placeholder="Lokasi" 
+                            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-6 py-4 focus:border-blue-500 outline-none transition">
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-blue-500 ml-1">Jenis Kejahatan</label>
+                    <select id="crimeType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-6 py-4 focus:border-blue-500">
+                        <option value="Perampokan">Perampokan</option>
+                        <option value="Pembunuhan">Pembunuhan</option>
+                        <option value="Narkotika">Narkotika</option>
+                    </select>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-blue-500 ml-1">Deskripsi</label>
+                    <textarea id="crimeDesc" rows="4" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-6 py-4 outline-none focus:border-blue-500"></textarea>
+                </div>
+                <button type="submit" id="submitReportBtn" class="w-full bg-blue-700 hover:bg-blue-800 py-6 rounded-2xl font-black uppercase text-xs tracking-[0.4em] shadow-xl shadow-blue-700/20">KIRIM LAPORAN KE DISPATCH</button>
+            </form>
+            <div id="reportSuccess" class="hidden mt-8 p-6 bg-blue-500/20 border border-blue-500/50 rounded-2xl text-blue-400 text-center font-bold uppercase text-[10px] tracking-widest">Laporan diterima!</div>
+        </div>
+    </section>
+
+    <!-- Recruitment Section -->
+    <section id="recruitment" class="max-w-4xl mx-auto px-6 py-24 mb-24 border-t border-slate-900">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-black italic uppercase mb-4 tracking-tighter">Police Academy</h2>
+        </div>
+        <div class="police-glass p-12 rounded-[3.5rem] border-slate-700">
+            <form id="policeRecruitmentForm" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <input type="text" id="cadetName" required placeholder="Nama IC" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-6 py-4 outline-none">
+                    <input type="number" id="cadetAge" required placeholder="Umur IC" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-6 py-4 outline-none">
+                </div>
+                <textarea id="cadetReason" rows="3" required placeholder="Alasan bergabung..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-6 py-4 outline-none"></textarea>
+                <button type="submit" id="submitRecBtn" class="w-full border-2 border-blue-700 text-blue-500 hover:bg-blue-700 hover:text-white py-5 rounded-2xl font-black uppercase text-[10px]">Daftar Akademi Polisi</button>
+            </form>
+            <div id="recSuccess" class="hidden mt-6 text-green-500 text-center font-bold text-[10px]">Aplikasi telah dikirim!</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 py-16 px-6 bg-slate-950 text-center">
+        <h3 class="text-2xl font-black uppercase italic tracking-tighter">REBEL CITY <span class="text-blue-500">POLICE</span></h3>
+        <p class="text-slate-700 text-[10px] mt-6 uppercase tracking-[0.5em] font-bold italic">To Protect & To Serve • Minecraft Roleplay</p>
+    </footer>
+
+    <script>
+        const webhookUrl = 'https://discord.com/api/webhooks/1453021214208557077/R4j19TG2DPjxnytQmICJgvj6gwNfJPlZJ0nayP8jZ4S9kJZnt5SMZYN3T-ESOkVxrd7r';
+        
+        // --- WEAPON LICENSE HANDLER (NEW) ---
+        const weaponForm = document.getElementById('weaponForm');
+        const submitWeaponBtn = document.getElementById('submitWeaponBtn');
+        const weaponSuccess = document.getElementById('weaponSuccess');
+
+        weaponForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitWeaponBtn.disabled = true;
+            submitWeaponBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSING LICENSE...';
+
+            const payload = {
+                username: "LSPD LICENSING UNIT",
+                avatar_url: "https://cdn-icons-png.flaticon.com/512/1063/1063376.png",
+                embeds: [{
+                    title: "🔫 PENGAJUAN IZIN SENJATA BARU",
+                    color: 15844367, // Gold
+                    fields: [
+                        { name: "👤 Nama Karakter", value: `**${document.getElementById('weaponName').value}**`, inline: true },
+                        { name: "🎂 Usia", value: `**${document.getElementById('weaponAge').value} Tahun**`, inline: true },
+                        { name: "🎯 Tipe Lisensi", value: `\`${document.getElementById('weaponType').value}\``, inline: false },
+                        { name: "📝 Alasan", value: `\`\`\`${document.getElementById('weaponReason').value}\`\`\`` }
+                    ],
+                    footer: { text: "LSPD Licensing Bureau • Rebel City Gov" },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            try {
+                const res = await fetch(webhookUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (res.ok) { weaponSuccess.classList.remove('hidden'); weaponForm.reset(); setTimeout(() => weaponSuccess.classList.add('hidden'), 5000); }
+            } catch (err) { alert("Error."); }
+            finally { submitWeaponBtn.disabled = false; submitWeaponBtn.innerHTML = '<i class="fas fa-id-card"></i> KIRIM PERMOHONAN LISENSI'; }
+        });
+
+        // --- CRIME REPORT HANDLER ---
+        const reportForm = document.getElementById('crimeReportForm');
+        const submitReportBtn = document.getElementById('submitReportBtn');
+        const reportSuccess = document.getElementById('reportSuccess');
+
+        reportForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitReportBtn.disabled = true;
+            submitReportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> TRANSMITTING...';
+
+            const payload = {
+                username: "LSPD DISPATCHER",
+                avatar_url: "https://cdn-icons-png.flaticon.com/512/3273/3273347.png",
+                content: "@everyone **🚨 EMERGENCY CALL: KEJAHATAN DILAPORKAN 🚨**",
+                embeds: [{
+                    title: "📄 LAPORAN KEJAHATAN BARU",
+                    color: 2123412,
+                    fields: [
+                        { name: "👤 Nama Pelapor", value: `**${document.getElementById('reporterName').value}**`, inline: true },
+                        { name: "📍 Lokasi", value: `**${document.getElementById('crimeLocation').value}**`, inline: true },
+                        { name: "⚠️ Jenis", value: `\`${document.getElementById('crimeType').value}\``, inline: false },
+                        { name: "📝 Deskripsi", value: `\`\`\`${document.getElementById('crimeDesc').value}\`\`\`` }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            try {
+                const res = await fetch(webhookUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (res.ok) { reportSuccess.classList.remove('hidden'); reportForm.reset(); setTimeout(() => reportSuccess.classList.add('hidden'), 5000); }
+            } catch (err) {}
+            finally { submitReportBtn.disabled = false; submitReportBtn.innerHTML = 'KIRIM LAPORAN KE DISPATCH'; }
+        });
+
+        // --- RECRUITMENT HANDLER ---
+        const recForm = document.getElementById('policeRecruitmentForm');
+        const submitRecBtn = document.getElementById('submitRecBtn');
+        const recSuccess = document.getElementById('recSuccess');
+
+        recForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitRecBtn.disabled = true;
+            const payload = {
+                username: "LSPD ACADEMY",
+                embeds: [{
+                    title: "👮 PENDAFTARAN AKADEMI BARU",
+                    color: 3447003,
+                    fields: [
+                        { name: "Nama", value: document.getElementById('cadetName').value, inline: true },
+                        { name: "Usia", value: document.getElementById('cadetAge').value, inline: true },
+                        { name: "Alasan", value: document.getElementById('cadetReason').value }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+            try {
+                const res = await fetch(webhookUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (res.ok) { recSuccess.classList.remove('hidden'); recForm.reset(); setTimeout(() => recSuccess.classList.add('hidden'), 5000); }
+            } catch (err) {}
+            finally { submitRecBtn.disabled = false; }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebel City - Government Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-gov {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-gov:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -5px rgba(59, 130, 246, 0.4);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .member-card:hover .member-img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="glass sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="bg-blue-600 p-2 rounded-lg shadow-lg shadow-blue-600/30">
+                <i class="fas fa-landmark text-white text-xl"></i>
+            </div>
+            <span class="text-xl font-bold tracking-tighter uppercase">REBEL CITY <span class="text-blue-500">GOV</span></span>
+        </div>
+        <div class="hidden md:flex gap-8 text-sm font-medium">
+            <a href="#" class="hover:text-blue-400 transition">Beranda</a>
+            <a href="#services" class="hover:text-blue-400 transition">Layanan</a>
+            <a href="#leaders" class="hover:text-blue-400 transition">Pemerintah</a>
+            <a href="#identity" class="hover:text-blue-400 transition">Pendaftaran</a>
+        </div>
+        <button class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-full text-sm font-semibold transition active:scale-95">
+            Portal Pegawai
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative py-24 px-6 overflow-hidden text-center">
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="inline-block px-4 py-1.5 mb-6 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest">
+                Situs Resmi Pemerintah Kota
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+                Membangun Masa Depan <br><span class="gradient-text">Rebel City Bersama</span>
+            </h1>
+            <p class="text-slate-400 text-lg mb-10 max-w-2xl mx-auto">
+                Portal pelayanan publik terpadu untuk seluruh warga Rebel City. Kelola pajak, izin, dan identitas Anda secara transparan dan cepat.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#identity" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl font-bold flex items-center gap-2 btn-gov">
+                    <i class="fas fa-id-card"></i> Daftar Identitas IC
+                </a>
+                <a href="#services" class="glass px-8 py-4 rounded-xl font-bold hover:bg-slate-800 flex items-center gap-2 btn-gov">
+                    <i class="fas fa-th-large"></i> Telusuri Layanan
+                </a>
+            </div>
+        </div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full -z-0"></div>
+    </header>
+
+    <!-- Government Leaders Section (Updated to President & VP) -->
+    <section id="leaders" class="max-w-4xl mx-auto px-6 py-20 border-t border-slate-800/50">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold mb-4">Pimpinan Tertinggi</h2>
+            <p class="text-slate-400">Duo eksekutif yang memegang kedaulatan di Rebel City.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <!-- President -->
+            <div class="glass p-10 rounded-[3rem] text-center member-card transition border-blue-500/30 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-1 bg-blue-500"></div>
+                <div class="relative w-40 h-40 mx-auto mb-8 rounded-full overflow-hidden border-4 border-blue-500 p-1 bg-slate-800">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="President" class="member-img w-full h-full object-cover rounded-full transition duration-500">
+                </div>
+                <h3 class="text-2xl font-bold mb-1 italic tracking-tight">NAMA PRESIDEN</h3>
+                <p class="text-blue-400 text-sm font-bold uppercase tracking-[0.2em] mb-6">Presiden Rebel City</p>
+                <div class="flex justify-center gap-3">
+                    <span class="bg-blue-600/20 text-blue-400 px-3 py-1 rounded-full text-xs font-bold uppercase">Kepala Negara</span>
+                    <span class="bg-blue-600/20 text-blue-400 px-3 py-1 rounded-full text-xs font-bold uppercase">Veto Power</span>
+                </div>
+            </div>
+
+            <!-- Vice President -->
+            <div class="glass p-10 rounded-[3rem] text-center member-card transition border-slate-700 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-1 bg-slate-500"></div>
+                <div class="relative w-40 h-40 mx-auto mb-8 rounded-full overflow-hidden border-4 border-slate-600 p-1 bg-slate-800">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=VP" alt="Vice President" class="member-img w-full h-full object-cover rounded-full transition duration-500">
+                </div>
+                <h3 class="text-2xl font-bold mb-1 italic tracking-tight">NAMA WAKIL PRESIDEN</h3>
+                <p class="text-slate-300 text-sm font-bold uppercase tracking-[0.2em] mb-6">Wakil Presiden</p>
+                <div class="flex justify-center gap-3">
+                    <span class="bg-slate-700 text-slate-300 px-3 py-1 rounded-full text-xs font-bold uppercase">Kepala Pemerintahan</span>
+                    <span class="bg-slate-700 text-slate-300 px-3 py-1 rounded-full text-xs font-bold uppercase">Internal Affairs</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="max-w-6xl mx-auto px-6 py-20 border-t border-slate-800/50">
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-4">
+            <span class="w-12 h-1 bg-blue-600 rounded-full"></span>
+            Layanan Kota Terpadu
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <button class="glass p-8 rounded-[2rem] flex flex-col items-start gap-6 hover:border-blue-500/50 group btn-gov text-left">
+                <div class="w-14 h-14 bg-blue-600/20 rounded-2xl flex items-center justify-center group-hover:bg-blue-600 transition duration-500">
+                    <i class="fas fa-file-invoice-dollar text-2xl text-blue-400 group-hover:text-white"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2">Kantor Pajak</h3>
+                    <p class="text-slate-400 text-sm">Pembayaran pajak rumah, kendaraan, dan bisnis secara rutin.</p>
+                </div>
+            </button>
+            <button class="glass p-8 rounded-[2rem] flex flex-col items-start gap-6 hover:border-red-500/50 group btn-gov text-left">
+                <div class="w-14 h-14 bg-red-600/20 rounded-2xl flex items-center justify-center group-hover:bg-red-600 transition duration-500">
+                    <i class="fas fa-id-badge text-2xl text-red-400 group-hover:text-white"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2">Izin Senjata & SIM</h3>
+                    <p class="text-slate-400 text-sm">Pengajuan lisensi mengemudi dan kepemilikan senjata legal.</p>
+                </div>
+            </button>
+            <button class="glass p-8 rounded-[2rem] flex flex-col items-start gap-6 hover:border-purple-500/50 group btn-gov text-left">
+                <div class="w-14 h-14 bg-purple-600/20 rounded-2xl flex items-center justify-center group-hover:bg-purple-600 transition duration-500">
+                    <i class="fas fa-building-columns text-2xl text-purple-400 group-hover:text-white"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2">Kantor Walikota</h3>
+                    <p class="text-slate-400 text-sm">Konsultasi publik, pengaduan warga, dan urusan administrasi.</p>
+                </div>
+            </button>
+            <button class="glass p-8 rounded-[2rem] flex flex-col items-start gap-6 hover:border-orange-500/50 group btn-gov text-left">
+                <div class="w-14 h-14 bg-orange-600/20 rounded-2xl flex items-center justify-center group-hover:bg-orange-600 transition duration-500">
+                    <i class="fas fa-briefcase text-2xl text-orange-400 group-hover:text-white"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2">Bursa Kerja</h3>
+                    <p class="text-slate-400 text-sm">Cari lowongan pekerjaan resmi atau ajukan lamaran PNS/Polisi.</p>
+                </div>
+            </button>
+            <button class="glass p-8 rounded-[2rem] flex flex-col items-start gap-6 hover:border-green-500/50 group btn-gov text-left">
+                <div class="w-14 h-14 bg-green-600/20 rounded-2xl flex items-center justify-center group-hover:bg-green-600 transition duration-500">
+                    <i class="fas fa-home text-2xl text-green-400 group-hover:text-white"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2">Properti & Aset</h3>
+                    <p class="text-slate-400 text-sm">Jual beli tanah, rumah, dan sertifikasi kepemilikan aset kota.</p>
+                </div>
+            </button>
+            <button class="glass p-8 rounded-[2rem] flex flex-col items-start gap-6 hover:border-cyan-500/50 group btn-gov text-left">
+                <div class="w-14 h-14 bg-cyan-600/20 rounded-2xl flex items-center justify-center group-hover:bg-cyan-600 transition duration-500">
+                    <i class="fas fa-gavel text-2xl text-cyan-400 group-hover:text-white"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2">Pengadilan Tinggi</h3>
+                    <p class="text-slate-400 text-sm">Proses hukum, sidang pidana, dan bantuan hukum untuk warga.</p>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <!-- Identity Form Section -->
+    <section id="identity" class="max-w-4xl mx-auto px-6 py-20 mb-20">
+        <div class="glass p-8 md:p-12 rounded-[3.5rem] border-blue-500/30 relative">
+            <div class="absolute top-0 right-0 p-8 opacity-10">
+                <i class="fas fa-fingerprint text-8xl"></i>
+            </div>
+            
+            <div class="mb-10 text-center md:text-left">
+                <h2 class="text-3xl font-bold mb-3">Pendaftaran Identitas Sipil</h2>
+                <p class="text-slate-400">Daftarkan data karakter (IC) Anda ke dalam sistem kependudukan terpusat.</p>
+            </div>
+
+            <form id="identityForm" class="space-y-6 relative z-10">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-slate-300 ml-1">Nama Lengkap (IC)</label>
+                        <input type="text" id="name" required placeholder="Nama Karakter Anda" 
+                            class="w-full bg-slate-900/50 border border-slate-700 rounded-2xl px-5 py-4 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-slate-300 ml-1">Umur (IC)</label>
+                        <input type="number" id="age" required placeholder="Usia IC" 
+                            class="w-full bg-slate-900/50 border border-slate-700 rounded-2xl px-5 py-4 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-slate-300 ml-1">Jenis Kelamin</label>
+                        <select id="gender" class="w-full bg-slate-900/50 border border-slate-700 rounded-2xl px-5 py-4 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none cursor-pointer appearance-none">
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-slate-300 ml-1">Pekerjaan Karakter</label>
+                        <input type="text" id="job" placeholder="Pekerjaan saat ini atau rencana" 
+                            class="w-full bg-slate-900/50 border border-slate-700 rounded-2xl px-5 py-4 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-300 ml-1">Latar Belakang Karakter</label>
+                    <textarea id="bio" rows="4" placeholder="Ceritakan kisah singkat karakter Anda di Rebel City..." 
+                        class="w-full bg-slate-900/50 border border-slate-700 rounded-2xl px-5 py-4 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition resize-none"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-700 py-5 rounded-2xl font-bold text-lg shadow-xl shadow-blue-600/20 transition-all active:scale-95 flex items-center justify-center gap-3">
+                    <i class="fas fa-paper-plane"></i> Kirim ke Arsip Pemerintah
+                </button>
+            </form>
+            
+            <div id="successMessage" class="hidden mt-8 p-5 bg-green-500/20 border border-green-500/50 rounded-2xl text-green-400 text-center flex items-center justify-center gap-3">
+                <i class="fas fa-check-double text-xl"></i>
+                <span class="font-semibold text-sm md:text-base">Data berhasil diarsipkan! Pemerintah akan segera meninjau.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-12 px-6 bg-slate-950">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <div class="flex items-center gap-2 justify-center md:justify-start mb-2">
+                    <i class="fas fa-landmark text-blue-500"></i>
+                    <h3 class="text-xl font-bold tracking-tight uppercase">REBEL CITY <span class="text-blue-500">GOV</span></h3>
+                </div>
+                <p class="text-slate-500 text-sm">Server Minecraft Roleplay Indonesia.</p>
+            </div>
+            <div class="flex gap-6 text-2xl">
+                <a href="#" class="text-slate-500 hover:text-white transition"><i class="fab fa-discord"></i></a>
+                <a href="#" class="text-slate-500 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-slate-500 hover:text-white transition"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const webhookUrl = 'https://discord.com/api/webhooks/1453015925186887682/0akzR9pZ_I5ATH3UYEPjeIM9IeSh3Y_v0kTXxyLw6PSVF54UPzI4uCKP98cq2J6GELo8';
+        const form = document.getElementById('identityForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMsg = document.getElementById('successMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const job = document.getElementById('job').value;
+            const bio = document.getElementById('bio').value;
+
+            const discordPayload = {
+                username: "SISTEM ARSIP KOTA REBEL",
+                avatar_url: "https://cdn-icons-png.flaticon.com/512/3273/3273347.png",
+                embeds: [{
+                    title: "🏛️ LAPORAN PENDAFTARAN WARGA BARU",
+                    color: 2123412, 
+                    fields: [
+                        { name: "👤 Nama IC", value: `**${name}**`, inline: true },
+                        { name: "🎂 Usia", value: `\`${age} Tahun\``, inline: true },
+                        { name: "🚻 Kelamin", value: gender, inline: true },
+                        { name: "💼 Pekerjaan", value: job || "N/A", inline: false },
+                        { name: "📖 Biografi", value: bio || "Tidak ada catatan." }
+                    ],
+                    thumbnail: { url: "https://api.dicebear.com/7.x/initials/svg?seed=" + name },
+                    footer: { text: "Rebel City Gov System • Database Pusat" },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(discordPayload)
+                });
+
+                if (response.ok) {
+                    successMsg.classList.remove('hidden');
+                    form.reset();
+                    setTimeout(() => successMsg.classList.add('hidden'), 5000);
+                } else {
+                    alert("Koneksi ke sistem pusat terputus.");
+                }
+            } catch (error) {
+                alert("Gagal mengirim data.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim ke Arsip Pemerintah';
+            }
+        });
+    </script>
+</body>
+</html>
