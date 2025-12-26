@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steel Horse (SH) - Loyalty Over Everything</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #050505;
+            color: #e2e8f0;
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, .oswald {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(5,5,5,1)), 
+                        url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .sh-card {
+            background: #0f0f0f;
+            border: 1px solid #1f1f1f;
+            transition: all 0.3s ease;
+        }
+
+        .sh-card:hover {
+            border-color: #ef4444;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.1);
+        }
+
+        .red-glow {
+            text-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+        }
+
+        .border-red {
+            border-left: 4px solid #ef4444;
+        }
+
+        .nav-glass {
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #1f1f1f;
+        }
+
+        .hood-img {
+            filter: grayscale(100%) contrast(120%);
+            transition: 0.5s ease;
+        }
+
+        .sh-card:hover .hood-img {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        /* Styles for the Gate */
+        #entry-gate {
+            background: radial-gradient(circle, #1a0b0b 0%, #050505 100%);
+            z-index: 9999;
+        }
+
+        .gate-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .gate-input:focus {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.05);
+            outline: none;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+        }
+    </style>
+</head>
+<body class="overflow-hidden">
+
+    <!-- GATE SYSTEM (PINTU MASUK) -->
+    <div id="entry-gate" class="fixed inset-0 flex items-center justify-center p-6 transition-all duration-1000">
+        <div class="max-w-md w-full bg-[#0f0f0f] border-t-4 border-red-600 p-10 rounded-xl shadow-2xl text-center space-y-8">
+            <div>
+                <i class="fas fa-horse-head text-red-600 text-5xl mb-4 animate-pulse"></i>
+                <h2 class="text-3xl font-bold oswald tracking-widest text-white">REBEL CITY <span class="text-red-600 italic">SH</span> GATE</h2>
+                <p class="text-gray-500 text-xs mt-2 uppercase tracking-tighter italic">Identifikasi Diri Anda Sebelum Melanjutkan</p>
+            </div>
+            
+            <form id="gate-form" class="space-y-4">
+                <div class="text-left">
+                    <label class="text-[10px] font-bold text-red-500 uppercase ml-1">Nama In-Character (IC)</label>
+                    <input type="text" id="name-ic" required placeholder="Contoh: Kayzen" 
+                        class="gate-input w-full p-4 rounded-lg mt-1 text-sm font-bold uppercase">
+                </div>
+                <div class="text-left">
+                    <label class="text-[10px] font-bold text-gray-500 uppercase ml-1">Nama Out-Of-Character (OOC)</label>
+                    <input type="text" id="name-ooc" required placeholder="Nama Asli / Discord" 
+                        class="gate-input w-full p-4 rounded-lg mt-1 text-sm font-bold uppercase">
+                </div>
+                <button type="submit" id="gate-btn" class="w-full bg-red-600 hover:bg-red-700 py-4 rounded-lg font-bold text-sm uppercase tracking-widest transition-all active:scale-95 shadow-lg shadow-red-600/20">
+                    Masuk Markas SH
+                </button>
+            </form>
+            
+            <p class="text-[9px] text-gray-600 uppercase tracking-widest">LOYALTY OVER EVERYTHING • STEEL HORSE FAMILY</p>
+        </div>
+    </div>
+
+    <!-- MAIN WRAPPER (HIDDEN UNTIL SUBMITTED) -->
+    <div id="main-content" class="opacity-0 transition-opacity duration-1000">
+        <!-- Navigation -->
+        <nav class="fixed w-full z-50 nav-glass px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-horse-head text-red-600 text-2xl"></i>
+                <span class="text-xl font-bold tracking-tighter oswald">STEEL <span class="text-red-600">HORSE</span></span>
+            </div>
+            <div class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest">
+                <a href="#home" class="hover:text-red-500 transition">Beranda</a>
+                <a href="#petinggi" class="hover:text-red-500 transition">Petinggi</a>
+                <a href="#hood" class="hover:text-red-500 transition">Hood</a>
+                <a href="#family" class="hover:text-red-500 transition">Keluarga</a>
+            </div>
+            <button class="bg-red-600 hover:bg-red-700 px-6 py-2 text-xs font-bold uppercase transition">Join Us</button>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="home" class="relative min-h-screen flex items-center justify-center text-center px-6 hero-gradient">
+            <div class="max-w-4xl">
+                <p class="text-red-500 font-bold tracking-[0.5em] mb-4 text-sm uppercase">Rebel City Underground</p>
+                <h1 class="text-6xl md:text-9xl font-bold mb-6 red-glow">STEEL HORSE</h1>
+                <p class="text-lg md:text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed italic">
+                    "Besi yang menempa kami, aspal yang menyatukan kami. Di bawah bayang-bayang Rebel City, kami berdiri sebagai satu keluarga."
+                </p>
+                <div class="mt-10 flex flex-wrap justify-center gap-4">
+                    <a href="#hood" class="border border-red-600 px-8 py-3 font-bold uppercase text-xs tracking-widest hover:bg-red-600 transition">Jelajahi Wilayah</a>
+                    <a href="#petinggi" class="bg-white text-black px-8 py-3 font-bold uppercase text-xs tracking-widest hover:bg-gray-200 transition">Lihat Komando</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Petinggi Section -->
+        <section id="petinggi" class="py-24 px-6 max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-2">High Command</h2>
+                <div class="w-20 h-1 bg-red-600 mx-auto"></div>
+                <p class="mt-4 text-gray-500 uppercase text-xs tracking-[0.3em]">Rantai Komando Steel Horse</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Ketua -->
+                <div class="sh-card p-8 text-center rounded-sm">
+                    <div class="relative w-40 h-40 mx-auto mb-6">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=sh-leader" alt="Ketua" class="rounded-full bg-zinc-800 border-4 border-red-600 p-1">
+                        <div class="absolute bottom-0 right-0 bg-red-600 p-2 rounded-full shadow-lg">
+                            <i class="fas fa-crown text-xs"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-1">Kayzen</h3>
+                    <p class="text-red-500 text-xs font-bold uppercase tracking-widest mb-4">President (Ketua)</p>
+                    <p class="text-gray-500 text-sm italic italic leading-relaxed">
+                        "Otoritas tertinggi. Penentu arah masa depan Steel Horse di Rebel City."
+                    </p>
+                </div>
+
+                <!-- Wakil -->
+                <div class="sh-card p-8 text-center rounded-sm">
+                    <div class="relative w-40 h-40 mx-auto mb-6">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=sh-vp" alt="Wakil" class="rounded-full bg-zinc-800 border-4 border-zinc-700 p-1">
+                        <div class="absolute bottom-0 right-0 bg-zinc-700 p-2 rounded-full shadow-lg">
+                            <i class="fas fa-star text-xs text-white"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-1">-</h3>
+                    <p class="text-zinc-400 text-xs font-bold uppercase tracking-widest mb-4">Vice President</p>
+                    <p class="text-gray-500 text-sm italic leading-relaxed">
+                        "Tangan kanan President. Penjaga disiplin dan operasional internal geng."
+                    </p>
+                </div>
+
+                <!-- Sergeant at Arms -->
+                <div class="sh-card p-8 text-center rounded-sm">
+                    <div class="relative w-40 h-40 mx-auto mb-6">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=sh-enforcer" alt="Enforcer" class="rounded-full bg-zinc-800 border-4 border-zinc-700 p-1">
+                        <div class="absolute bottom-0 right-0 bg-zinc-700 p-2 rounded-full shadow-lg">
+                            <i class="fas fa-shield-alt text-xs text-white"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-1">-</h3>
+                    <p class="text-zinc-400 text-xs font-bold uppercase tracking-widest mb-4">Sergeant at Arms</p>
+                    <p class="text-gray-500 text-sm italic leading-relaxed">
+                        "Panglima perang. Bertanggung jawab atas keamanan Hood dan kekuatan tempur."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hood Section -->
+        <section id="hood" class="py-24 bg-[#0a0a0a] px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <h2 class="text-4xl font-bold mb-6 border-red pl-6 uppercase">The Steel Hood</h2>
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            Terletak di jantung distrik industrial Rebel City, **The Steel Hood** bukan sekadar tempat tinggal. Ini adalah benteng pertahanan kami. Dilengkapi dengan bengkel kustom, gudang logistik, dan area pertemuan rahasia.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-zinc-900/50 p-4 border border-zinc-800">
+                                <p class="text-red-500 font-bold text-xl">STATUS</p>
+                                <p class="text-xs text-gray-500 uppercase">Restricted Area</p>
+                            </div>
+                            <div class="bg-zinc-900/50 p-4 border border-zinc-800">
+                                <p class="text-red-500 font-bold text-xl">PATROL</p>
+                                <p class="text-xs text-gray-500 uppercase">24/7 Security</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                        <img src="sh.png" class="rounded-sm hood-img object-cover h-48 w-full shadow-2xl" alt="Hood View 1" onerror="this.src='https://images.unsplash.com/photo-1541444652251-c06d87e596d1?q=80&w=2072&auto=format&fit=crop'">
+                        <img src="https://images.unsplash.com/photo-1533106497176-45ae19e68ba2?q=80&w=2070&auto=format&fit=crop" class="rounded-sm hood-img object-cover h-48 w-full shadow-2xl" alt="Hood View 2">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Family Values Section -->
+        <section id="family" class="py-24 px-6 max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-2">Steel Horse Family</h2>
+                <div class="w-20 h-1 bg-red-600 mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="sh-card p-6 border-red">
+                    <i class="fas fa-handshake text-red-600 text-3xl mb-4"></i>
+                    <h4 class="font-bold mb-2">Loyalitas</h4>
+                    <p class="text-xs text-gray-500">Sekali SH, tetap SH sampai mati. Tidak ada tempat untuk pengkhianat.</p>
+                </div>
+                <div class="sh-card p-6 border-red">
+                    <i class="fas fa-users text-red-600 text-3xl mb-4"></i>
+                    <h4 class="font-bold mb-2">Persaudaraan</h4>
+                    <p class="text-xs text-gray-500">Masalah satu anggota adalah masalah seluruh keluarga Steel Horse.</p>
+                </div>
+                <div class="sh-card p-6 border-red">
+                    <i class="fas fa-skull text-red-600 text-3xl mb-4"></i>
+                    <h4 class="font-bold mb-2">Keberanian</h4>
+                    <p class="text-xs text-gray-500">Kami tidak mencari masalah, tapi kami tidak akan mundur dari tantangan.</p>
+                </div>
+                <div class="sh-card p-6 border-red">
+                    <i class="fas fa-wrench text-red-600 text-3xl mb-4"></i>
+                    <h4 class="font-bold mb-2">Respek</h4>
+                    <p class="text-xs text-gray-500">Hormati rantai komando dan setiap tetes keringat saudara kita.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 border-t border-zinc-900 bg-black text-center">
+            <div class="flex justify-center gap-6 mb-8 text-xl">
+                <a href="#" class="text-gray-600 hover:text-red-600"><i class="fab fa-discord"></i></a>
+                <a href="#" class="text-gray-600 hover:text-red-600"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-600 hover:text-red-600"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="text-zinc-700 text-[10px] uppercase tracking-widest">
+                Property of Steel Horse MC &copy; 2024 • Rebel City Minecraft RP
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // WEBHOOK URL UNTUK GATE
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1454034569979494495/HPxHiPSm7nOYfx1UFDz-umBWgVq0Rx8iPtUuRj94tTI8NkfegXzoc1DM0BYGMkzdAyAe";
+
+        const gateForm = document.getElementById('gate-form');
+        const entryGate = document.getElementById('entry-gate');
+        const mainContent = document.getElementById('main-content');
+        const gateBtn = document.getElementById('gate-btn');
+
+        gateForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const ic = document.getElementById('name-ic').value;
+            const ooc = document.getElementById('name-ooc').value;
+
+            // UI Feedback
+            gateBtn.disabled = true;
+            gateBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Memproses...';
+
+            const payload = {
+                username: "SH GATE KEEPER",
+                avatar_url: "https://cdn-icons-png.flaticon.com/512/3273/3273347.png",
+                embeds: [{
+                    title: "🚪 AKSES MASUK MARKAS SH",
+                    color: 15158332, // Red
+                    description: "Seseorang telah mengakses portal resmi Steel Horse.",
+                    fields: [
+                        { name: "👤 NAMA IC", value: `**${ic}**`, inline: true },
+                        { name: "🎮 NAMA OOC", value: `**${ooc}**`, inline: true },
+                        { name: "📍 STATUS", value: "Akses Diberikan", inline: false }
+                    ],
+                    footer: { text: "Rebel City Underground Monitoring System" },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            try {
+                // Kirim data ke Discord
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                // Berikan notifikasi sukses menggunakan SweetAlert2
+                Swal.fire({
+                    title: 'AKSES DITERIMA',
+                    text: `Selamat datang di markas, ${ic}!`,
+                    icon: 'success',
+                    background: '#0f0f0f',
+                    color: '#fff',
+                    confirmButtonColor: '#ef4444',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                // Sembunyikan Gate dan Tampilkan Konten
+                setTimeout(() => {
+                    entryGate.style.opacity = '0';
+                    entryGate.style.pointerEvents = 'none';
+                    mainContent.classList.remove('opacity-0');
+                    mainContent.style.opacity = '1';
+                    document.body.classList.remove('overflow-hidden');
+                }, 1000);
+
+            } catch (error) {
+                console.error("Error:", error);
+                Swal.fire('Ralat', 'Gagal menghubungi server.', 'error');
+                gateBtn.disabled = false;
+                gateBtn.innerHTML = 'Masuk Markas SH';
+            }
+        });
+    </script>
+
+</body>
+</html>
