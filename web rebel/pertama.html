@@ -138,7 +138,7 @@
             text-shadow: 0 0 8px var(--neon-pink);
         }
 
-        /* --- LIST PORTFOLIO (FACTIONS & BADSIDE) - DESAIN ASLI TAPI TEMA NEON --- */
+        /* --- LIST PORTFOLIO --- */
         .list-portfolio-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -277,7 +277,6 @@
     <div id="access-gate">
         <div class="glass-card p-8 mx-4" data-aos="zoom-in">
             <div class="text-center mb-8">
-                <!-- Logo Placeholer Pink -->
                 <div class="w-24 h-24 mx-auto mb-4 rounded-full border-2 border-[var(--neon-pink)] p-1 shadow-[0_0_20px_var(--neon-pink)] animate-pulse">
                     <img src="https://placehold.co/100x100/000000/ff0099?text=R" alt="Logo" class="w-full h-full object-cover rounded-full">
                 </div>
@@ -286,7 +285,6 @@
             </div>
 
             <form id="access-form" class="space-y-6">
-                <!-- HANYA SATU INPUT (IC) SEPERTI PERMINTAAN -->
                 <div>
                     <label class="block text-xs uppercase text-[var(--neon-pink)] mb-2 font-bold tracking-wider">Nama Penduduk (IC)</label>
                     <input type="text" id="citizen-name" class="input-neon w-full px-4 py-3 rounded-lg text-lg text-center" placeholder="Masukan Nama Character..." autocomplete="off" required>
@@ -314,6 +312,7 @@
                 <a href="#whitelist" class="nav-link">Whitelist</a>
                 <a href="#rules" class="nav-link">Rules</a>
                 <a href="#factions" class="nav-link">Factions</a>
+                <a href="#keluarga" class="nav-link">Keluarga</a>
                 <a href="#badside" class="nav-link">BadSide</a>
                 <a href="#store" class="nav-link">Store</a>
                 <a href="#admin" class="nav-link">Panel</a>
@@ -387,7 +386,7 @@
             </div>
         </section>
 
-        <!-- FACTIONS (DIKEMBALIKAN SEMULA) -->
+        <!-- FACTIONS (Pekerjaan Legal) -->
         <section id="factions" class="container mx-auto py-20 px-4">
             <div class="text-center mb-12" data-aos="fade-up">
                 <h2 class="section-title">FAKSI & PEKERJAAN</h2>
@@ -396,7 +395,6 @@
             </div>
             
             <div class="list-portfolio-container">
-                <!-- LSPD -->
                 <a href="lspd.html" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="100">
                     <div class="list-portfolio-image-wrapper">
                         <img src="lspd.png" onerror="this.onerror=null; this.src='https://placehold.co/120x68/003366/00f3ff?text=LSPD';" alt="Police">
@@ -406,8 +404,6 @@
                         <p>To Protect and Serve</p>
                     </div>
                 </a>
-
-                <!-- SWAT -->
                 <a href="lspd.html" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="200">
                     <div class="list-portfolio-image-wrapper">
                         <img src="lspd.png" onerror="this.onerror=null; this.src='https://placehold.co/120x68/004488/00f3ff?text=SWAT';" alt="SWAT">
@@ -417,8 +413,6 @@
                         <p>Elite Response</p>
                     </div>
                 </a>
-
-                <!-- EMS -->
                 <a href="ems.html" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="300">
                     <div class="list-portfolio-image-wrapper">
                         <img src="ems.png" onerror="this.onerror=null; this.src='https://placehold.co/120x68/336600/00f3ff?text=EMS';" alt="Medic">
@@ -428,13 +422,11 @@
                         <p>Save Lives, Stay Alive</p>
                     </div>
                 </a>
-
-                <!-- PEMERINTAHAN -->
                 <a href="pemerintah.html" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="400">
                     <div class="list-portfolio-image-wrapper">
                         <img src="pemerintah.png" onerror="this.onerror=null; this.src='https://placehold.co/120x68/663300/00f3ff?text=GOV';" alt="Pemerintahan">
                     </div>
-                    <div class="list-portfolio-text">   
+                    <div class="list-portfolio-text"> 
                         <h3>Pemerintahan</h3>
                         <p>Mengelola Kota</p>
                     </div>
@@ -442,8 +434,65 @@
             </div>
         </section>
 
-        <!-- BADSIDE (DIKEMBALIKAN SEMULA) -->
-        <section id="badside" class="container mx-auto py-20 px-4">
+        <!-- LIST KELUARGA (TAMBAHAN BARU) -->
+        <section id="keluarga" class="container mx-auto py-20 px-4 border-t border-white/5">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="section-title">LIST KELUARGA</h2>
+                <div class="section-divider"></div>
+                <p class="text-gray-400">Keluarga besar yang mendominasi tatanan sosial di kota.</p>
+            </div>
+            
+            <div class="list-portfolio-container">
+                <div class="list-portfolio-item" data-aos="fade-right">
+                    <div class="list-portfolio-image-wrapper">
+                        <img src="deluca.png" alt="De Luca">
+                    </div>
+                    <div class="list-portfolio-text">
+                        <h3 style="color: #ff3333;">De Luca</h3>
+                        <p class="text-xs italic text-gray-500">Established Family</p>
+                    </div>
+                </div>
+                <div class="list-portfolio-item" data-aos="fade-right" data-aos-delay="100">
+                    <div class="list-portfolio-image-wrapper">
+                        <img src="https://placehold.co/120x120/ffffff/cc0000?text=AKI" alt="Akinata">
+                    </div>
+                    <div class="list-portfolio-text">
+                        <h3 style="color: #ffffff; text-shadow: 0 0 5px #ff0000;">Akinata</h3>
+                        <p class="text-xs italic text-gray-500">Established Family</p>
+                    </div>
+                </div>
+                <div class="list-portfolio-item" data-aos="fade-right" data-aos-delay="200">
+                    <div class="list-portfolio-image-wrapper">
+                        <img src="https://placehold.co/120x120/2b004a/ffd700?text=SOV" alt="Soverain">
+                    </div>
+                    <div class="list-portfolio-text">
+                        <h3 style="color: #ffd700;">Soverain</h3>
+                        <p class="text-xs italic text-gray-500">Established Family</p>
+                    </div>
+                </div>
+                <div class="list-portfolio-item opacity-50 grayscale" data-aos="fade-right" data-aos-delay="300">
+                    <div class="list-portfolio-image-wrapper">
+                        <img src="https://placehold.co/120x120/111/444?text=?" alt="CS">
+                    </div>
+                    <div class="list-portfolio-text">
+                        <h3 class="text-gray-500">Coming Soon</h3>
+                        <p class="text-xs italic text-gray-600">Pending Authorization</p>
+                    </div>
+                </div>
+                <div class="list-portfolio-item opacity-50 grayscale" data-aos="fade-right" data-aos-delay="400">
+                    <div class="list-portfolio-image-wrapper">
+                        <img src="https://placehold.co/120x120/111/444?text=?" alt="CS">
+                    </div>
+                    <div class="list-portfolio-text">
+                        <h3 class="text-gray-500">Coming Soon</h3>
+                        <p class="text-xs italic text-gray-600">Pending Authorization</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BADSIDE -->
+        <section id="badside" class="container mx-auto py-20 px-4 border-t border-white/5">
             <div class="text-center mb-12" data-aos="fade-up">
                 <h2 class="section-title">BADSIDE DI CITY</h2>
                 <div class="section-divider"></div>
@@ -451,8 +500,7 @@
             </div>
             
             <div class="list-portfolio-container mb-12">
-                <!-- N9M -->
-                <a href="N9M.html" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="100">
+                <a href="#" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="100">
                     <div class="list-portfolio-image-wrapper">
                         <img src="N9M.jpeg" onerror="this.onerror=null; this.src='https://placehold.co/120x68/330000/ff0099?text=N9M';" alt="Gang N9M">
                     </div>
@@ -461,9 +509,7 @@
                         <p>Nightmare</p>
                     </div>
                 </a>
-
-                <!-- T8H -->
-                <a href="t8h.html" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="200">
+                <a href="#" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="200">
                     <div class="list-portfolio-image-wrapper">
                         <img src="t8h.jpg" onerror="this.onerror=null; this.src='https://placehold.co/120x68/440022/ff0099?text=T8H';" alt="Gang T8H">
                     </div>
@@ -472,9 +518,7 @@
                         <p>Street Crew</p>
                     </div>
                 </a>
-
-                <!-- CSS -->
-                <a href="CSS.html" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="300">
+                <a href="#" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="300">
                     <div class="list-portfolio-image-wrapper">
                         <img src="CSS.jpeg" onerror="this.onerror=null; this.src='https://placehold.co/120x68/550011/ff0099?text=CSS';" alt="Gang CSS">
                     </div>
@@ -483,8 +527,6 @@
                         <p>CASSANO</p>
                     </div>
                 </a>
-
-                <!-- YAKUZA -->
                 <a href="#" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="400">
                     <div class="list-portfolio-image-wrapper">
                         <img src="yakuza.png" onerror="this.onerror=null; this.src='https://placehold.co/120x68/660000/ff0099?text=YAKUZA';" alt="Gang Yakuza">
@@ -494,9 +536,7 @@
                         <p>Japanese Mob</p>
                     </div>  
                 </a>
-                
-                <!-- TGSF -->
-                <a href="tgsf.html" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="500">
+                <a href="#" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="500">
                     <div class="list-portfolio-image-wrapper">
                         <img src="TGSF.jpeg" onerror="this.onerror=null; this.src='https://placehold.co/120x68/330000/ff0099?text=TGSF';" alt="Gang TGSF">
                     </div>
@@ -505,8 +545,6 @@
                         <p>Unknown Gang</p>
                     </div>
                 </a>
-
-                <!-- ALL STAR -->
                 <a href="#" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="600">
                     <div class="list-portfolio-image-wrapper">
                         <img src="as.png" onerror="this.onerror=null; this.src='https://placehold.co/120x68/440044/ff0099?text=ALL+STAR';" alt="Gang All Star">
@@ -516,9 +554,7 @@
                         <p>Gang Lainnya</p>
                     </div>
                 </a>
-
-                <!-- SH -->
-                <a href="sh.html" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="700">
+                <a href="#" class="list-portfolio-item" data-aos="fade-up" data-aos-delay="700">
                     <div class="list-portfolio-image-wrapper">
                         <img src="sh.png" onerror="this.onerror=null; this.src='https://placehold.co/120x68/440044/ff0099?text=SH';" alt="Gang SH">
                     </div>
@@ -529,13 +565,12 @@
                 </a>
             </div>
 
-            <!-- MAFIA TOP RANK (DIKEMBALIKAN SEMULA) -->
+            <!-- MAFIA TOP RANK -->
             <div class="mt-20 text-center" data-aos="fade-up">
                 <h3 class="text-3xl font-tech text-[var(--neon-pink)] mb-2 text-glow">MAFIA TOP RANK</h3>
                 <p class="text-[var(--neon-cyan)] font-mono mb-10">Lima orang yang mengendalikan jaringan kriminal tertinggi.</p>
                 
                 <div class="mafia-grid">
-                    <!-- MR01 -->
                     <div class="mafia-card" data-aos="zoom-in" data-aos-delay="100">
                         <div class="mafia-img-box">
                              <img src="mr01.png" onerror="this.onerror=null; this.src='https://placehold.co/200x200/330000/ff0099?text=MR01';" alt="MR01">
@@ -543,17 +578,13 @@
                         <h3 class="text-[var(--neon-pink)] font-bold text-xl">MR01</h3>
                         <p class="text-white text-sm">The Underboss</p>
                     </div>
-
-                    <!-- MR02 -->
                     <div class="mafia-card" data-aos="zoom-in" data-aos-delay="200">
                         <div class="mafia-img-box">
-                            <img src="https://placehold.co/200x200/330000/ff0099?text=MR02" onerror="this.onerror=null; this.src='https://placehold.co/200x200/330000/ff0099?text=MR02';" alt="MR02">
+                            <img src="https://placehold.co/200x200/330000/ff0099?text=MR02" alt="MR02">
                         </div>
                         <h3 class="text-[var(--neon-pink)] font-bold text-xl">MR02</h3>
                         <p class="text-white text-sm">Consigliere</p>
                     </div>
-
-                    <!-- MR03 -->
                     <div class="mafia-card" data-aos="zoom-in" data-aos-delay="300">
                         <div class="mafia-img-box">
                             <img src="mr03.jpeg" onerror="this.onerror=null; this.src='https://placehold.co/200x200/330000/ff0099?text=MR03';" alt="MR03">
@@ -561,8 +592,6 @@
                         <h3 class="text-[var(--neon-pink)] font-bold text-xl">MR03</h3>
                         <p class="text-white text-sm">Capo Regime</p>
                     </div>
-
-                    <!-- MR04 -->
                     <div class="mafia-card" data-aos="zoom-in" data-aos-delay="400">
                         <div class="mafia-img-box">
                             <img src="mr04.jpeg" onerror="this.onerror=null; this.src='https://placehold.co/200x200/330000/ff0099?text=MR04';" alt="MR04">
@@ -570,8 +599,6 @@
                         <h3 class="text-[var(--neon-pink)] font-bold text-xl">MR04</h3>
                         <p class="text-white text-sm">Pasar Gelap</p>
                     </div>
-
-                    <!-- MR05 (VACANT) -->
                     <div class="mafia-card border-gray-600 bg-gray-900/50" data-aos="zoom-in" data-aos-delay="500">
                         <div class="mafia-img-box grayscale opacity-50">
                             <img src="https://placehold.co/200x200/111111/ffffff?text=VACANT" alt="Vacant">
@@ -583,7 +610,7 @@
             </div>
         </section>
 
-        <!-- FASILITAS KOTA (DIKEMBALIKAN SEMULA) -->
+        <!-- FASILITAS KOTA -->
         <section id="store" class="container mx-auto py-20 px-4">
             <div class="text-center mb-12" data-aos="fade-up">
                 <h2 class="section-title">FASILITAS KOTA</h2>
@@ -591,8 +618,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                <!-- Apartemen -->
-                <a href="https://aksarastudio.vercel.app/" target="_blank" class="list-portfolio-item" data-aos="zoom-in">
+                <a href="#" target="_blank" class="list-portfolio-item" data-aos="zoom-in">
                      <div class="list-portfolio-image-wrapper">
                         <img src="image.png" onerror="this.onerror=null; this.src='https://placehold.co/120x68/1e0a2e/ff0099?text=APT';" alt="Apartemen">
                     </div>
@@ -601,8 +627,6 @@
                         <p>Menyewa Tempat Tinggal</p>
                     </div>
                 </a>
-
-                <!-- Booking Apart -->
                 <a href="#" target="_blank" class="list-portfolio-item" data-aos="zoom-in">
                      <div class="list-portfolio-image-wrapper">
                         <img src="image.png" onerror="this.onerror=null; this.src='https://placehold.co/120x68/1e0a2e/ff0099?text=BOOK';" alt="Booking">
@@ -635,53 +659,17 @@
     <script>
         AOS.init({ once: true, offset: 50 });
 
-        /* --- CONFIGURATION --- */
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1444548922239488091/gk65JSYLtNvbhJfpOIPesV2zyGC58GfYkr1fDJ2dO8juNFdPIQZB51vwkdZHNiOCO-3Q";
         const SESSION_KEY = 'rebel_neon_fixed_session';
 
-        /* --- PARTICLES (Agar tetap terlihat mahal) --- */
-        function createParticles() {
-            const container = document.getElementById('particles-js');
-            const particleCount = 40;
-
-            for(let i=0; i<particleCount; i++) {
-                const p = document.createElement('div');
-                const size = Math.random() * 3 + 1;
-                p.style.width = `${size}px`;
-                p.style.height = `${size}px`;
-                p.style.background = Math.random() > 0.5 ? 'var(--neon-pink)' : 'var(--neon-cyan)';
-                p.style.position = 'absolute';
-                p.style.left = `${Math.random() * 100}vw`;
-                p.style.top = `${Math.random() * 100}vh`;
-                p.style.borderRadius = '50%';
-                p.style.opacity = Math.random() * 0.5 + 0.1;
-                p.style.boxShadow = `0 0 ${size*2}px ${p.style.background}`;
-                p.style.animation = `float ${Math.random() * 10 + 10}s linear infinite`;
-                container.appendChild(p);
-            }
-        }
-
-        // Keyframes for particles
-        const styleSheet = document.createElement("style");
-        styleSheet.innerText = `
-            @keyframes float {
-                0% { transform: translateY(0) translateX(0); opacity: 0; }
-                50% { opacity: 0.8; }
-                100% { transform: translateY(-100vh) translateX(${Math.random()*50 - 25}px); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(styleSheet);
-        createParticles();
-
-        /* --- CLOCK --- */
         function updateClock() {
             const now = new Date();
-            document.getElementById('digital-clock').innerText = now.toLocaleTimeString('id-ID', { hour12: false });
+            const clockEl = document.getElementById('digital-clock');
+            if(clockEl) clockEl.innerText = now.toLocaleTimeString('id-ID', { hour12: false });
         }
         setInterval(updateClock, 1000);
         updateClock();
 
-        /* --- LOGIC LOGIN & ADMIN --- */
         const gate = document.getElementById('access-gate');
         const content = document.getElementById('main-content');
         const form = document.getElementById('access-form');
@@ -705,18 +693,14 @@
                 document.getElementById('display-name').innerText = name;
                 document.getElementById('user-badge').classList.remove('hidden');
                 
-                // Admin Panel Check Logic
                 const adminArea = document.getElementById('admin-content-area');
-                // Simulasi Admin logic sederhana
-                if(true) { 
-                     adminArea.innerHTML = `
-                        <div class="glass-card p-6 inline-block border-[var(--neon-pink)]">
-                            <h3 class="text-xl font-bold text-[var(--neon-pink)] uppercase">Storyboard Manager</h3>
-                             <p class="text-[var(--neon-cyan)] text-sm mb-4">Create/Edit City Events</p>
-                             <p class="text-xs font-mono text-green-500 animate-pulse">[ ACCESS GRANTED ]</p>
-                        </div>
-                    `;
-                }
+                adminArea.innerHTML = `
+                    <div class="glass-card p-6 inline-block border-[var(--neon-pink)]">
+                        <h3 class="text-xl font-bold text-[var(--neon-pink)] uppercase">Storyboard Manager</h3>
+                        <p class="text-[var(--neon-cyan)] text-sm mb-4">Create/Edit City Events</p>
+                        <p class="text-xs font-mono text-green-500 animate-pulse">[ ACCESS GRANTED ]</p>
+                    </div>
+                `;
                 
                 AOS.refresh();
             }, 500);
@@ -731,30 +715,26 @@
                 return;
             }
 
-            // Webhook Discord
-            const payload = {
-                embeds: [{
-                    title: "👾 LOGIN DETECTED (NEON)",
-                    color: 16711833, // Pink
-                    fields: [
-                        { name: "Nama IC", value: name, inline: true },
-                        { name: "Waktu", value: new Date().toLocaleString(), inline: true }
-                    ],
-                    footer: { text: "Rebel State System" }
-                }]
-            };
-
             fetch(DISCORD_WEBHOOK_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
+                body: JSON.stringify({
+                    embeds: [{
+                        title: "👾 LOGIN DETECTED (NEON)",
+                        color: 16711833,
+                        fields: [
+                            { name: "Nama IC", value: name, inline: true },
+                            { name: "Waktu", value: new Date().toLocaleString(), inline: true }
+                        ],
+                        footer: { text: "Rebel State System" }
+                    }]
+                })
             }).catch(err => console.log("Webhook skipped"));
 
             sessionStorage.setItem(SESSION_KEY, JSON.stringify({ name }));
             unlockSite(name);
         });
 
-        // Info Popup SweetAlert
         window.showInfo = (e) => {
             e.preventDefault();
             Swal.fire({
