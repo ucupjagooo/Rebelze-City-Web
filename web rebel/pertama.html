@@ -278,7 +278,7 @@
         <div class="glass-card p-8 mx-4" data-aos="zoom-in">
             <div class="text-center mb-8">
                 <div class="w-24 h-24 mx-auto mb-4 rounded-full border-2 border-[var(--neon-pink)] p-1 shadow-[0_0_20px_var(--neon-pink)] animate-pulse">
-                    <img src="https://placehold.co/100x100/000000/ff0099?text=R" alt="Logo" class="w-full h-full object-cover rounded-full">
+                    <img src="image.png" alt="Logo" class="w-full h-full object-cover rounded-full">
                 </div>
                 <h2 class="text-3xl font-tech font-bold text-white tracking-wider text-glow">REBEL PORTAL</h2>
                 <p class="text-xs text-[var(--neon-cyan)] mt-1 tracking-[0.3em] uppercase">SYSTEM SECURE</p>
@@ -354,16 +354,16 @@
         <!-- WHITELIST SECTION -->
         <section id="whitelist" class="container mx-auto py-20 px-4">
             <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="section-title">STATUS WHITELIST</h2>
+                <h2 class="section-title">Daftar Sekolah</h2>
                 <div class="section-divider"></div>
-                <p class="text-gray-400">Pendaftaran sedang dimoderasi secara manual di Discord.</p>
+                <p class="text-gray-400">Pendaftaran untuk menjadi Siswa Rebel City.</p>
             </div>
 
             <div class="max-w-md mx-auto"> 
-                <a href="https://dsc.gg/rebelsmp" target="_blank" onclick="showInfo(event)" class="block group">
+                <a href="school.html"_blank" onclick="showInfo(event)" class="block group">
                     <div class="bg-black/80 border-2 border-[var(--neon-pink)] rounded-xl p-6 text-center hover:shadow-[0_0_30px_var(--neon-pink)] transition duration-300" data-aos="zoom-in">
-                        <h3 class="text-2xl font-tech text-[var(--neon-pink)] mb-2">PENDAFTARAN DITUTUP</h3>
-                        <p class="text-[var(--neon-cyan)] font-bold font-mono">Wajib daftar melalui Discord.</p>
+                        <h3 class="text-2xl font-tech text-[var(--neon-pink)] mb-2">PENDAFTARAN DIBUKA</h3>
+                        <p class="text-[var(--neon-cyan)] font-bold font-mono">Masuk Ke Web School</p>
                     </div>
                 </a>
             </div>
@@ -738,15 +738,15 @@
         window.showInfo = (e) => {
             e.preventDefault();
             Swal.fire({
-                title: 'PENDAFTARAN DITUTUP',
-                html: 'Silakan lakukan whitelist manual via Discord.',
+                title: 'PENDAFTARAN DIBUKA',
+                html: 'Silakan lakukan registrasi.',
                 icon: 'info',
                 background: '#050505',
                 color: '#fff',
                 confirmButtonColor: '#ff0099',
-                confirmButtonText: 'JOIN DISCORD'
+                confirmButtonText: 'buka web'
             }).then((result) => {
-                if(result.isConfirmed) window.open('https://dsc.gg/rebelsmp', '_blank');
+                if(result.isConfirmed) window.open('school.html', '_blank');
             });
         };
 
