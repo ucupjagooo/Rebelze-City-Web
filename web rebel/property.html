@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebel City Real Estate - Sistem Transaksi Properti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Space+Mono&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .minecraft-gold-btn {
+            background-color: #d97706;
+            border-bottom: 4px solid #92400e;
+            transition: all 0.2s;
+        }
+
+        .minecraft-gold-btn:hover:not(:disabled) {
+            background-color: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        .receipt-font {
+            font-family: 'Space Mono', monospace;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                        url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-home text-yellow-500 text-2xl"></i>
+            <span class="font-bold text-xl tracking-tight">REBEL <span class="text-yellow-500">ESTATE</span></span>
+        </div>
+        <div class="hidden md:flex space-x-8 font-semibold text-sm uppercase tracking-wider">
+            <a href="#home" class="hover:text-yellow-500 transition">Beranda</a>
+            <a href="#transaction" class="text-yellow-500 border border-yellow-500 px-4 py-1 rounded hover:bg-yellow-500 hover:text-slate-900 transition">Transaksi</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section h-[40vh] flex flex-col justify-center items-center text-center px-4">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 drop-shadow-2xl">Rebel City <br><span class="text-yellow-500">Property Marketplace</span></h1>
+        <p class="text-gray-300 max-w-2xl mb-8">Kalkulator otomatis harga tanah berdasarkan dimensi (P x L).</p>
+    </section>
+
+    <!-- Transaction Form -->
+    <section id="transaction" class="py-16 bg-slate-900/50">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="glass-card p-8 md:p-12 rounded-3xl border-yellow-500/20 shadow-2xl">
+                
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Form Side -->
+                    <div>
+                        <h2 class="text-2xl font-bold mb-6 text-yellow-500 flex items-center">
+                            <i class="fas fa-file-invoice-dollar mr-3"></i> Form Transaksi
+                        </h2>
+                        <form id="transactionForm" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Nama Karakter (IC)</label>
+                                <input type="text" id="name" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-yellow-500 text-white">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">WhatsApp</label>
+                                    <input type="tel" id="whatsapp" required placeholder="08..." class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-yellow-500 text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Aksi</label>
+                                    <select id="action" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-yellow-500 text-white">
+                                        <option value="beli">Beli Properti</option>
+                                        <option value="jual">Jual Properti</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Tipe Properti</label>
+                                <select id="propType" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-yellow-500 text-white">
+                                    <option value="tanah">Tanah (P x L)</option>
+                                    <option value="rumah_kecil">Rumah Kecil</option>
+                                    <option value="mansion">Mansion Mewah</option>
+                                </select>
+                            </div>
+
+                            <!-- Land Dimension Inputs -->
+                            <div id="landGroup" class="space-y-4 p-4 bg-slate-800/50 rounded-lg border border-slate-700">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Pilih Dimensi Tanah</label>
+                                    <select id="landPreset" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-yellow-500 text-white">
+                                        <option value="10x10">10 x 10 (100 Blok)</option>
+                                        <option value="15x15">15 x 15 (225 Blok)</option>
+                                        <option value="20x20">20 x 20 (400 Blok)</option>
+                                        <option value="20x15">20 x 15 (300 Blok)</option>
+                                        <option value="30x30">30 x 30 (900 Blok)</option>
+                                        <option value="50x50">50 x 50 (2500 Blok)</option>
+                                        <option value="custom">-- Custom Ukuran --</option>
+                                    </select>
+                                </div>
+                                <div id="customLand" class="grid grid-cols-2 gap-4 hidden">
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Panjang</label>
+                                        <input type="number" id="length" value="10" min="1" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-yellow-500 text-white">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Lebar</label>
+                                        <input type="number" id="width" value="10" min="1" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-yellow-500 text-white">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Detail Lokasi</label>
+                                <textarea id="location" rows="2" required placeholder="Contoh: Samping Balai Kota / Koordinat X Y Z" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-yellow-500 text-white"></textarea>
+                            </div>
+
+                            <button type="submit" id="submitBtn" class="w-full minecraft-gold-btn py-4 rounded-xl font-bold text-lg mt-4 shadow-lg text-white">
+                                PROSES & KIRIM STRUK
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Receipt Preview Side -->
+                    <div class="flex flex-col">
+                        <h2 class="text-2xl font-bold mb-6 text-yellow-500 flex items-center">
+                            <i class="fas fa-receipt mr-3"></i> Struk Estimasi
+                        </h2>
+                        <div class="bg-white text-slate-900 p-8 rounded-lg shadow-inner receipt-font text-sm border-t-8 border-yellow-600">
+                            <div class="text-center border-b-2 border-dashed border-slate-400 pb-4 mb-4">
+                                <h3 class="font-bold text-xl">REBEL CITY ESTATE</h3>
+                                <p class="text-[10px] tracking-widest uppercase">Official Property System</p>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span>NAMA (IC):</span>
+                                    <span id="resNameDisplay" class="font-bold uppercase">---</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>TIPE UNIT:</span>
+                                    <span id="resType" class="font-bold uppercase">-</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>DIMENSI:</span>
+                                    <span id="resDim" class="font-bold">-</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>AKSI:</span>
+                                    <span id="resAction" class="font-bold uppercase">-</span>
+                                </div>
+                                <div class="flex justify-between border-t border-dashed border-slate-300 pt-3">
+                                    <span>HARGA DASAR:</span>
+                                    <span id="resBasePrice">$0</span>
+                                </div>
+                                <div id="discountRow" class="flex justify-between text-red-600 hidden">
+                                    <span>POTONGAN (20%):</span>
+                                    <span id="resDiscount">-$0</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 border-t-2 border-dashed border-slate-400 pt-4 bg-slate-50 p-2">
+                                <div class="flex justify-between font-bold text-xl">
+                                    <span>TOTAL $:</span>
+                                    <span id="resTotalDollar">$0</span>
+                                </div>
+                                <div class="flex justify-between font-bold text-blue-700 text-sm">
+                                    <span>TOTAL ATC:</span>
+                                    <span id="resTotalATC">0 ATC</span>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-10 text-[9px] text-slate-500 uppercase tracking-tighter">
+                                <p>*** DOKUMEN RESMI REBEL CITY ***</p>
+                                <p id="currentTime">--/--/-- --:--</p>
+                                <p class="mt-1">PENGURANGAN 20% BERLAKU UNTUK PENJUALAN KEMBALI</p>
+                            </div>
+                        </div>
+                        
+                        <div id="successInfo" class="hidden mt-6 p-4 bg-green-500/20 text-green-400 border border-green-500/50 rounded-lg text-center font-bold animate-bounce">
+                            STRUK BERHASIL DIKIRIM KE DISCORD!
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-gray-600 text-[10px] uppercase tracking-widest">
+        <p>© 2024 Rebel City • Advanced Property System v2.5</p>
+    </footer>
+
+    <script>
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1457786171190153257/lJfS3B0wSnAULl4U2_L5m2h7SAuJN-7mZs-NFAQyNWD9ThD9rGfwUfFhzarkJYFQAvmo";
+
+        const form = document.getElementById('transactionForm');
+        const actionEl = document.getElementById('action');
+        const propTypeEl = document.getElementById('propType');
+        const landPresetEl = document.getElementById('landPreset');
+        const lengthEl = document.getElementById('length');
+        const widthEl = document.getElementById('width');
+        
+        const landGroup = document.getElementById('landGroup');
+        const customLand = document.getElementById('customLand');
+        const nameEl = document.getElementById('name');
+
+        const BASE_LAND_DOLLAR = 100000;
+        const BASE_LAND_ATC = 10000;
+
+        const PRICE_MAP = {
+            tanah: { dollar: BASE_LAND_DOLLAR, atc: BASE_LAND_ATC },
+            rumah_kecil: { dollar: 500000, atc: 50000 },
+            mansion: { dollar: 1000000, atc: 100000 }
+        };
+
+        function calculate() {
+            const action = actionEl.value;
+            const type = propTypeEl.value;
+            let finalLength = 1;
+            let finalWidth = 1;
+            let totalBlocks = 1;
+
+            // Handle Land Logic
+            if (type === 'tanah') {
+                landGroup.classList.remove('hidden');
+                if (landPresetEl.value === 'custom') {
+                    customLand.classList.remove('hidden');
+                    finalLength = parseInt(lengthEl.value) || 1;
+                    finalWidth = parseInt(widthEl.value) || 1;
+                } else {
+                    customLand.classList.add('hidden');
+                    const [p, l] = landPresetEl.value.split('x').map(Number);
+                    finalLength = p;
+                    finalWidth = l;
+                }
+                totalBlocks = finalLength * finalWidth;
+            } else {
+                landGroup.classList.add('hidden');
+            }
+
+            let baseDollar = PRICE_MAP[type].dollar * totalBlocks;
+            let baseATC = PRICE_MAP[type].atc * totalBlocks;
+            let discountDollar = 0;
+
+            if (action === 'jual') {
+                discountDollar = baseDollar * 0.2;
+                document.getElementById('discountRow').classList.remove('hidden');
+            } else {
+                document.getElementById('discountRow').classList.add('hidden');
+            }
+
+            const totalDollar = baseDollar - discountDollar;
+            const totalATC = baseATC - (baseATC * (action === 'jual' ? 0.2 : 0));
+
+            // Update Struk UI
+            document.getElementById('resNameDisplay').innerText = nameEl.value || "---";
+            document.getElementById('resType').innerText = type.replace('_', ' ');
+            document.getElementById('resDim').innerText = type === 'tanah' ? `${finalLength}x${finalWidth} (${totalBlocks} Blk)` : "Standard";
+            document.getElementById('resAction').innerText = action;
+            document.getElementById('resBasePrice').innerText = "$" + baseDollar.toLocaleString();
+            document.getElementById('resDiscount').innerText = "-$" + discountDollar.toLocaleString();
+            document.getElementById('resTotalDollar').innerText = "$" + totalDollar.toLocaleString();
+            document.getElementById('resTotalATC').innerText = totalATC.toLocaleString() + " ATC";
+            document.getElementById('currentTime').innerText = new Date().toLocaleString();
+
+            return { totalDollar, totalATC, totalBlocks, action, type, baseDollar, discountDollar, dim: `${finalLength}x${finalWidth}` };
+        }
+
+        [actionEl, propTypeEl, landPresetEl, lengthEl, widthEl, nameEl].forEach(el => el.addEventListener('input', calculate));
+        calculate();
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const calc = calculate();
+            const wa = document.getElementById('whatsapp').value;
+            const loc = document.getElementById('location').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const successInfo = document.getElementById('successInfo');
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "MENGIRIM STRUK...";
+
+            const cleanWA = wa.replace(/\D/g, '');
+            const waLink = cleanWA.startsWith('0') ? '62' + cleanWA.slice(1) : cleanWA;
+
+            const discordReceipt = 
+`\`\`\`
+╔════════════════════════════════════╗
+      STRUK REAL ESTATE - REBEL CITY  
+╚════════════════════════════════════╝
+TANGGAL  : ${new Date().toLocaleString()}
+PEMESAN  : ${nameEl.value.toUpperCase()}
+WHATSAPP : ${wa}
+──────────────────────────────────────
+TIPE     : ${calc.type.toUpperCase()}
+AKSI     : ${calc.action.toUpperCase()}
+DIMENSI  : ${calc.dim}
+LUAS     : ${calc.totalBlocks} BLOCK(S)
+──────────────────────────────────────
+HARGA DS : $${calc.baseDollar.toLocaleString()}
+POTONGAN : $${calc.discountDollar.toLocaleString()} (20%)
+──────────────────────────────────────
+TOTAL $  : $${calc.totalDollar.toLocaleString()}
+TOTAL ATC: ${calc.totalATC.toLocaleString()} ATC
+──────────────────────────────────────
+LOKASI   : ${loc.toUpperCase()}
+──────────────────────────────────────
+   HUBUNGI VIA WHATSAPP:
+   https://wa.me/${waLink}
+======================================
+\`\`\``;
+
+            const payload = {
+                username: "KASIR REAL ESTATE",
+                embeds: [{
+                    title: `PROPERTI: ${calc.action.toUpperCase()}`,
+                    color: calc.action === 'beli' ? 65280 : 16711680,
+                    description: discordReceipt,
+                    footer: { text: "Rebel City Estate Management" }
+                }]
+            };
+
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    successInfo.classList.remove('hidden');
+                    form.reset();
+                    calculate();
+                    setTimeout(() => successInfo.classList.add('hidden'), 5000);
+                } else {
+                    alert("Gagal kirim. Cek Webhook.");
+                }
+            } catch (err) {
+                alert("Kesalahan Jaringan.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "PROSES & KIRIM STRUK";
+            }
+        });
+    </script>
+</body>
+</html>
